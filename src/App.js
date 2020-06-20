@@ -3,8 +3,13 @@ import './App.css';
 import Card from './components/CardComponent';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import UserAvatar from './components/UserAvatarComponent';
+import NearbyUsersList from './components/NearbyUsersListComponent';
 
 function App() {
+  var dataUsr = [
+    { name: "Aakash", icon: "1", id:0 },
+    { name: "Arthas", icon: "1", id:1 }
+  ];  
   return (
     <React.Fragment>
       <Navbar dark>
@@ -12,10 +17,8 @@ function App() {
             <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
         </div>
       </Navbar>
-      <Card title="People" defaultMessage="No people found nearby" cardHeight="100px"/>
-      <Card title="Files" defaultMessage="Files you send or receive will be shown here" cardHeight="300px"/>
-      <UserAvatar userName="Aakash" userIcon="1" />
-      <UserAvatar userName="Arthas" userIcon="1" />
+      <NearbyUsersList users={dataUsr} />
+      {/* <Card title="Files" defaultMessage="Files you send or receive will be shown here" cardHeight="300px"/> */}
       {/* <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
