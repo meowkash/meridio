@@ -1,22 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Card from './components/CardComponent.js';
-import {
-  Collapse,
-  Jumbotron,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
-} from 'reactstrap';
+import Card from './components/CardComponent';
+import { Navbar, NavbarBrand } from 'reactstrap';
+import UserAvatar from './components/UserAvatarComponent';
 
 function App() {
   return (
@@ -28,6 +14,8 @@ function App() {
       </Navbar>
       <Card title="People" defaultMessage="No people found nearby" cardHeight="100px"/>
       <Card title="Files" defaultMessage="Files you send or receive will be shown here" cardHeight="300px"/>
+      <UserAvatar userName="Aakash" userIcon="1" />
+      <UserAvatar userName="Arthas" userIcon="1" />
       {/* <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

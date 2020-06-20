@@ -1,4 +1,3 @@
-// This is the basic card that will be fill with the people bar and the files bar
 import React, { Component } from 'react';
 import './CardComponent.css';
 
