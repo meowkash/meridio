@@ -17,28 +17,25 @@ class Card extends Component {
       console.log(this.state);
     }
 
-    // menu = this.props.elementsToRender.map((elem) => {
-      // this.setState( { menu : this.props.elementsToRender.map((elem) => {
-      
-      // })});
-      // console.log(this.state);
-    // });
-
     render() {
-        var menu; 
+        var menu, len; 
         try {
-          menu = this.state.elements.map((elem) => {
-            if(this.state.style === "horizontal") {
-              return (
-                <UserAvatar key={elem.id} userName={elem.name} userIcon={elem.icon} />
-              );
-            }
-            else if (this.state.style === "vertical") {
-              return true;
-            }
-          });
+          len = this.state.elements.length;
+        } catch (err) {
+          len = 0;
         }
-        catch(err) {
+        if(len>0) {
+            if(this.state.style === "horizontal") {
+                menu = this.state.elements.map((elem) =>
+                    <UserAvatar key={elem.id} userName={elem.name} userIcon={elem.icon} />
+                );
+            } else if (this.state.style === "vertical") {
+                menu = this.state.elements.map((elem) => 
+                    <FileListItem key={elem.id} fileName={elem.name} fileSize={elem.size} />
+                );
+            }
+        }
+        else {
           menu = () => {
             return (
               <p id={`${this.props.title}DefaultMessage`}> {this.props.defaultMessage} </p>

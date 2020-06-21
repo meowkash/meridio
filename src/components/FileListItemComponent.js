@@ -1,24 +1,19 @@
-// This is the basic card that will be fill with the people bar and the files bar
+// This contains the designing for the user profile circles that will be used for the user and nearby users as well
 import React, { Component } from 'react';
-import './FileListItemComponent.css';
+import './UserAvatarComponent.css';
 
-class FileListItem extends Component {
+class UserAvatar extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return (
-            <div className="Card">
-                <div className="CardHeader" id={`${this.props.title}Card`}>
-                  <p className="CardTitle"> {this.props.title} </p>            
-                </div>
-                <div className="CardContent">
-                  <p id={`${this.props.title}DefaultMessage`}> {this.props.defaultMessage} </p>
-                </div>
+            <div className="FileListItem">
+                <p> {this.props.fileName} </p>
             </div>
         );
     }
 }
 
-export default FileListItem;
+export default UserAvatar;
