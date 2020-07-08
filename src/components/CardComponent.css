@@ -14,7 +14,7 @@
 }
 
 .CardContent {
-    padding-left: 15px;
+    padding-left: 5px;
     padding-bottom: 15px;
     padding-top: 15px;
     min-height: 100px;
@@ -32,4 +32,9 @@
     padding-top: 5px;
     font-size: small;
     height: 1.8rem;
+}
+
+.DefaultMessage {
+    margin-left: -5px;
+    text-align: center;
 }

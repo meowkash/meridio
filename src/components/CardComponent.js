@@ -24,6 +24,7 @@ class Card extends Component {
         } catch (err) {
           len = 0;
         }
+        console.log(len);
         if(len>0) {
             if(this.state.style === "horizontal") {
                 menu = this.state.elements.map((elem) =>
@@ -36,11 +37,7 @@ class Card extends Component {
             }
         }
         else {
-          menu = () => {
-            return (
-              <p id={`${this.props.title}DefaultMessage`}> {this.props.defaultMessage} </p>
-            );
-          }
+          menu = <p class="DefaultMessage"> {this.props.defaultMessage} </p>
         }
         return (
             <div className="Card">
