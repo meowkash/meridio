@@ -34,6 +34,7 @@ import UserAvatar from './components/userItem';
 import FileItem from './components/fileItem';
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
+import MeridioHeader from './components/meridioHeader';
 
 function Demo() {
     return (
@@ -51,22 +52,15 @@ const Stack = createStackNavigator();
 const App: () => React$Node = () => {
     return (
         <>
+            <MeridioHeader  
+                    backgroundColor="green"
+                    largeTitleFontColor="white"
+            />
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home" headerMode="screen">
-                    <Stack.Screen name="Meridio">
-                        {() => (
-                            <Tab.Navigator
-                                initialRouteName="Send"
-
-                            >
-                                <Tab.Screen name="Send" component={SendScreen} />
-                                <Tab.Screen name="Receive" component={ReceiveScreen} />
-                            </Tab.Navigator>
-                        )}
-                    </Stack.Screen>
-
-                    <Stack.Screen name="Settings" component={Demo} />
-                </Stack.Navigator>
+                <Tab.Navigator>
+                    <Tab.Screen name="Send" component={SendScreen} />
+                    <Tab.Screen name="Receive" component={ReceiveScreen} />
+                </Tab.Navigator>
             </NavigationContainer>
         </>
     );

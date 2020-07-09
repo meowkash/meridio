@@ -35,33 +35,32 @@ const DATA = [
 export default function SendScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <SafeAreaView style={styles.container}>
-                <FlatList
-                    style={styles.usersList}
-                    horizontal={true}
-                    data={DATA}
-                    renderItem={({ item, index, separators }) => (
-                        <UserAvatar
-                            id={item.id}
-                            icon={item.icon}
-                            name={item.name}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-                <FlatList
-                    style={styles.filesList}
-                    data={DATA}
-                    renderItem={({ item, index, separators }) => (
-                        <FileItem
-                            id={item.id}
-                            icon={item.icon}
-                            name={item.name}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-            </SafeAreaView>
+            <FlatList
+                style={styles.usersList}
+                horizontal={true}
+                data={DATA}
+                renderItem={({ item, index, separators }) => (
+                    <UserAvatar
+                        id={item.id}
+                        icon={item.icon}
+                        name={item.name}
+                    />
+                )}
+                keyExtractor={item => item.id}
+            />
+            <FlatList
+                style={styles.filesList}
+                data={DATA}
+                renderItem={({ item, index, separators }) => (
+                    <FileItem
+                        id={item.id}
+                        icon={item.icon}
+                        name={item.name}
+                    />
+                )}
+                keyExtractor={item => item.id}
+            />
+
         </View>
     );
 }
