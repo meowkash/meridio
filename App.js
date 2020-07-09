@@ -13,7 +13,8 @@ import {
     ScrollView,
     View,
     Text,
-    FlatList
+    FlatList,
+    Platform
 } from 'react-native';
 
 import {
@@ -52,12 +53,32 @@ const Stack = createStackNavigator();
 const App: () => React$Node = () => {
     return (
         <>
-            <MeridioHeader  
-                    backgroundColor="green"
-                    largeTitleFontColor="white"
+            <MeridioHeader
+                backgroundColor="gainsboro"
+                largeTitleFontColor="darkslategrey"
+                largeTitleFontSize={22}
             />
             <NavigationContainer>
-                <Tab.Navigator>
+                <Tab.Navigator
+                    screenOptions={({ route }) => ({
+                        tabBarIcon: ({ focused, color, size }) => {
+                            let iconName;
+
+                            if (route.name === 'Send') {
+                                iconName = (Platform.OS==='ios')?'ios-cloud-upload':'md-cloud-upload';
+                            } else if (route.name === 'Receive') {
+                                iconName = (Platform.OS==='ios')?'ios-cloud-download':'md-cloud-download';
+                            }
+
+                            // You can return any component that you like here!
+                            return <Ionicons name={iconName} size={size} color={color} />;
+                        },
+                    })}
+                    tabBarOptions={{
+                        activeTintColor: 'rebeccapurple',
+                        inactiveTintColor: 'gray',
+                    }}
+                >
                     <Tab.Screen name="Send" component={SendScreen} />
                     <Tab.Screen name="Receive" component={ReceiveScreen} />
                 </Tab.Navigator>

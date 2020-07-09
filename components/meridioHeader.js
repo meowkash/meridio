@@ -14,10 +14,11 @@ const container = (backgroundColor, borderColor) => {
   return {
     borderColor,
     backgroundColor,
-    padding: 8,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 16,
     flexDirection: "row",
-    marginHorizontal: 0,
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     alignItems: "flex-start",
     justifyContent: "space-between"
   };
