@@ -25,10 +25,10 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import 'react-native-gesture-handler';
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import { NavigationContainer } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import UserAvatar from './components/userItem';
 
@@ -55,7 +55,33 @@ const DATA = [
 function SendScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home!</Text>
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    style={styles.usersList}
+                    horizontal={true}
+                    data={DATA}
+                    renderItem={({ item, index, separators }) => (
+                        <UserAvatar
+                            id={item.id}
+                            icon={item.icon}
+                            name={item.name}
+                        />
+                    )}
+                    keyExtractor={item => item.id}
+                />
+                <FlatList
+                    style={styles.filesList}
+                    data={DATA}
+                    renderItem={({ item, index, separators }) => (
+                        <FileItem
+                            id={item.id}
+                            icon={item.icon}
+                            name={item.name}
+                        />
+                    )}
+                    keyExtractor={item => item.id}
+                />
+            </SafeAreaView>
         </View>
     );
 }
@@ -63,21 +89,42 @@ function SendScreen() {
 function ReceiveScreen() {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Settings!</Text>
+            <Text>Receive</Text>
         </View>
     );
 }
-
+function Demo() {
+    return (
+        <View
+            style={{ flex: 1, justifyContent: 'space-between', alignItems: 'center' }}
+        >
+            <Text>This is top text.</Text>
+            <Text>This is bottom text.</Text>
+        </View>
+    );
+}
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const App: () => React$Node = () => {
     return (
         <>
             <NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Send" component={SendScreen} />
-                    <Tab.Screen name="Receive" component={ReceiveScreen} />
-                </Tab.Navigator>
+                <Stack.Navigator initialRouteName="Home" headerMode="screen">
+                    <Stack.Screen name="Meridio">
+                        {() => (
+                            <Tab.Navigator
+                                initialRouteName="Analitics"
+
+                            >
+                                <Tab.Screen name="Send" component={SendScreen} />
+                                <Tab.Screen name="Receive" component={ReceiveScreen} />
+                            </Tab.Navigator>
+                        )}
+                    </Stack.Screen>
+
+                    <Stack.Screen name="Settings" component={Demo} />
+                </Stack.Navigator>
             </NavigationContainer>
         </>
     );

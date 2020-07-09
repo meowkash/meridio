@@ -1,32 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {
     Text,
     Image,
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
-class FileItem extends React.Component {
+class FileItem extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
         return (
-            <div className="FileListItem container">
-                <div className="row">
-                    <div className="col-6">
-                        <p> {this.props.fileName} </p>
-                    </div>
-                    <div className="col-3">
-                        <p> {this.props.fileSize} </p>
-                    </div>
-                    <div className="col-3">
-                        <p> Progress Icon </p>
-                    </div>
-                </div>
-            </div>
+            <TouchableOpacity>
+                <Image style={this.styles.image}>
+                    
+                </Image>
+                <Text style={this.styles.text}>
+                    {this.props.name}
+                </Text>
+            </TouchableOpacity>
         );
     }
+
+    styles = StyleSheet.create({
+        text: {
+
+        },
+        image: {
+
+        }
+    });
 }
 
 export default FileItem;
