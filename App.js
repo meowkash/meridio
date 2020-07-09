@@ -24,6 +24,12 @@ import {
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import 'react-native-gesture-handler';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { NavigationContainer } from '@react-navigation/native';
+
 import UserAvatar from './components/userItem';
 
 import FileItem from './components/fileItem';
@@ -46,23 +52,33 @@ const DATA = [
     },
 ]
 
+function SendScreen() {
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Home!</Text>
+        </View>
+    );
+}
+
+function ReceiveScreen() {
+    return (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>Settings!</Text>
+        </View>
+    );
+}
+
+const Tab = createBottomTabNavigator();
+
 const App: () => React$Node = () => {
     return (
         <>
-            <SafeAreaView style={styles.container}>
-                <FlatList
-                    horizontal={true}
-                    data={DATA}
-                    renderItem={({item, index, separators}) => (
-                        <UserAvatar
-                            id={item.id}
-                            icon={item.icon}
-                            name={item.name}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-            </SafeAreaView>
+            <NavigationContainer>
+                <Tab.Navigator>
+                    <Tab.Screen name="Send" component={SendScreen} />
+                    <Tab.Screen name="Receive" component={ReceiveScreen} />
+                </Tab.Navigator>
+            </NavigationContainer>
         </>
     );
 };
