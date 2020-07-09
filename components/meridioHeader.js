@@ -18,7 +18,7 @@ const container = (backgroundColor, borderColor) => {
         paddingBottom: 8,
         paddingLeft: 16,
         margin: 8,
-        borderRadius: 10,
+        borderRadius: 6,
         flexDirection: "row",
         borderBottomWidth: 3,
         alignItems: "flex-start",
