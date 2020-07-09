@@ -55,7 +55,7 @@ const App: () => React$Node = () => {
         <>
             <MeridioHeader
                 backgroundColor="gainsboro"
-                largeTitleFontColor="darkslategrey"
+                largeTitleFontColor="midnightblue"
                 largeTitleFontSize={22}
             />
             <NavigationContainer>
@@ -70,7 +70,6 @@ const App: () => React$Node = () => {
                                 iconName = (Platform.OS==='ios')?'ios-cloud-download':'md-cloud-download';
                             }
 
-                            // You can return any component that you like here!
                             return <Ionicons name={iconName} size={size} color={color} />;
                         },
                     })}
