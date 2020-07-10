@@ -13,6 +13,7 @@ import {
 
 import UserAvatar from './userItem';
 import FileItem from './fileItem';
+import FloatingList from './floatingList';
 
 const DATA = [
     {
@@ -79,6 +80,11 @@ const styles = StyleSheet.create({
 export default function ReceiveScreen() {
     return (
         <SafeAreaView>
+            <FloatingList 
+                dataSrc={DATA}
+                isHorizontal={true}
+                listTitle="Ongoing Shares"
+            />
             <View style={container}>
                 <Text style={styles.heading}>
                     Incoming
@@ -97,24 +103,7 @@ export default function ReceiveScreen() {
                     keyExtractor={item => item.id}
                 />
             </View>
-            <View style={container}>
-                <Text style={styles.heading}>
-                    Notifications
-                </Text>
-
-                <FlatList
-                    style={styles.notifications}
-                    data={DATA}
-                    renderItem={({ item, index, separators }) => (
-                        <FileItem
-                            id={item.id}
-                            icon={item.icon}
-                            name={item.name}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-            </View>
+            
         </SafeAreaView>
     );
 }

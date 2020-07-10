@@ -55,7 +55,7 @@ const App: () => React$Node = () => {
         <>
             <MeridioHeader
                 backgroundColor="gainsboro"
-                largeTitleFontColor="midnightblue"
+                largeTitleFontColor="green"
                 largeTitleFontSize={22}
             />
             <NavigationContainer>
