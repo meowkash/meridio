@@ -84,26 +84,13 @@ export default function ReceiveScreen() {
                 dataSrc={DATA}
                 isHorizontal={true}
                 listTitle="Ongoing Shares"
+                listElementType="UserAvatar"
             />
-            <View style={container}>
-                <Text style={styles.heading}>
-                    Incoming
-                </Text>
-                <FlatList
-                    style={styles.incoming}
-                    horizontal={true}
-                    data={DATA}
-                    renderItem={({ item, index, separators }) => (
-                        <UserAvatar
-                            id={item.id}
-                            icon={item.icon}
-                            name={item.name}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-            </View>
-            
+            <FloatingList 
+                dataSrc={DATA}
+                listTitle="Incoming"
+                listElementType="FileItem"
+            />
         </SafeAreaView>
     );
 }

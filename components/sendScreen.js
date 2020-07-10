@@ -11,8 +11,7 @@ import {
     FlatList
 } from 'react-native';
 
-import UserAvatar from './userItem';
-import FileItem from './fileItem';
+import FloatingList from './floatingList';
 
 const styles = StyleSheet.create({});
 const DATA = [
@@ -34,33 +33,19 @@ const DATA = [
 ]
 export default function SendScreen() {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <FlatList
-                style={styles.usersList}
-                horizontal={true}
-                data={DATA}
-                renderItem={({ item, index, separators }) => (
-                    <UserAvatar
-                        id={item.id}
-                        icon={item.icon}
-                        name={item.name}
-                    />
-                )}
-                keyExtractor={item => item.id}
+        <SafeAreaView>
+            <FloatingList 
+                dataSrc={DATA}
+                isHorizontal={true}
+                listTitle="Nearby Users"
+                listElementType="UserAvatar"
             />
-            <FlatList
-                style={styles.filesList}
-                data={DATA}
-                renderItem={({ item, index, separators }) => (
-                    <FileItem
-                        id={item.id}
-                        icon={item.icon}
-                        name={item.name}
-                    />
-                )}
-                keyExtractor={item => item.id}
+            <FloatingList 
+                dataSrc={DATA}
+                isHorizontal={true}
+                listTitle="Files"
+                listElementType="FileItem"
             />
-
-        </View>
+        </SafeAreaView>
     );
 }

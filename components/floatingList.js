@@ -72,12 +72,29 @@ const styles = {
     }
 };
 
+function ListItem(item, index, separators) {
+    switch (listElementType) {
+        case 'UserAvatar':
+            return (<UserAvatar
+                id={item.id}
+                icon={item.icon}
+                name={item.name}
+            />);
+        case 'FileItem':
+            return (<FileItem
+                id={item.id}
+                icon={item.icon}
+                name={item.name}
+            />);
+    }
+}
+
 const FloatingList = (props) => {
     const {
         dataSrc,
         listTitle,
         isHorizontal,
-        containerStyle,
+        listElementType,
         listTitleStyle,
         borderColor,
         backgroundColor,
