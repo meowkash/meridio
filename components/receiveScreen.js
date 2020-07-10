@@ -85,9 +85,10 @@ export default function ReceiveScreen() {
                 isHorizontal={true}
                 listTitle="Ongoing Shares"
                 listElementType="UserAvatar"
+                titleBackground="teal"
+                titleColor="white"
             />
             <FloatingList 
-                dataSrc={DATA}
                 listTitle="Incoming"
                 listElementType="FileItem"
             />

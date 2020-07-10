@@ -33,60 +33,64 @@ const DATA = [
     },
 ]
 
-const container = (backgroundColor, borderColor) => {
+const heading = (bgColor, fgColor) => {
     return {
-        borderColor,
-        backgroundColor,
-        paddingTop: 8,
-        paddingBottom: 8,
-        paddingLeft: 16,
-        margin: 8,
-        borderRadius: 10,
-        flexDirection: "row",
-        borderBottomWidth: 3,
-        alignItems: "flex-start",
-        justifyContent: "space-between"
-    };
-};
-
-const styles = {
-    heading: {
         fontSize: 18,
         marginHorizontal: 8,
-        backgroundColor: "silver",
+        backgroundColor: bgColor,
+        color: fgColor,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
         paddingLeft: 10,
         paddingBottom: 4,
         paddingTop: 4
-    },
-    listStyle: {
+    };
+}
+const listStyle = (bgColor) => {
+    return {
         marginHorizontal: 8,
         paddingTop: 4,
-        backgroundColor: "silver",
+        backgroundColor: bgColor,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
         paddingLeft: 10,
         paddingBottom: 4,
         marginBottom: 10
-    }
+    },
 };
 
-function ListItem(item, index, separators) {
-    switch (listElementType) {
+ListItem = (item, index, separators, listComponentType) => {
+    switch (listComponentType) {
         case 'UserAvatar':
-            return (<UserAvatar
-                id={item.id}
-                icon={item.icon}
-                name={item.name}
-            />);
+            return (
+                <UserAvatar
+                    id={item.id}
+                    icon={item.icon}
+                    name={item.name}
+                />
+            );
         case 'FileItem':
-            return (<FileItem
-                id={item.id}
-                icon={item.icon}
-                name={item.name}
-            />);
+            return (
+                <FileItem
+                    id={item.id}
+                    icon={item.icon}
+                    name={item.name}
+                />
+            );
+        default:
+            return (
+                <Text> {listComponentType} {item.name} </Text>
+            );
     }
+}
+
+ListEmptyView = (emptyMessage) => {
+    return (
+        <View style={styles.emptyList}>
+            <Text style={{ textAlign: 'center' }}> {emptyMessage} </Text>
+        </View>
+
+    );
 }
 
 const FloatingList = (props) => {
@@ -95,30 +99,29 @@ const FloatingList = (props) => {
         listTitle,
         isHorizontal,
         listElementType,
-        listTitleStyle,
+        emptyMessage,
         borderColor,
-        backgroundColor,
-        listTitleFontSize,
-        listTitleFontColor,
-        listTitleFontWeight,
+        listBackground,
+        titleBackground,
+        titleColor,
     } = props;
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.heading}>
+        <View>
+            <Text style={heading(titleBackground, titleColor)}>
                 {listTitle}
             </Text>
-
             <FlatList
                 horizontal={isHorizontal}
                 style={styles.listStyle}
                 data={dataSrc}
                 renderItem={({ item, index, separators }) => (
-                    <UserAvatar
-                        id={item.id}
-                        icon={item.icon}
-                        name={item.name}
+                    <ListItem
+                        item={item}
+                        listComponentType={listElementType}
                     />
                 )}
+                ListEmptyComponent={ListEmptyView(emptyMessage)}
                 keyExtractor={item => item.id}
             />
         </View>
@@ -127,24 +130,20 @@ const FloatingList = (props) => {
 
 FloatingList.propTypes = {
     listTitle: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    listTitleFontSize: PropTypes.number,
-    listTitleFontColor: PropTypes.string,
-    listTitleFontWeight: PropTypes.string,
-    isHorizontal: PropTypes.bool
+    isHorizontal: PropTypes.bool,
+    listElementType: PropTypes.string
 };
 
 FloatingList.defaultProps = {
     listTitle: "Meridio",
-    listTitleFontSize: 30,
     isHorizontal: false,
     borderColor: "#EFEFF4",
-    dataSrc: { DATA },
+    titleBackground: "steelblue",
+    listBackground: "silver",
+    titleColor: "white",
+    dataSrc: [],
+    emptyMessage: "Sorry, nothing here",
     avatarStyle: styles.avatar,
-    listTitleFontWeight: "300",
-    backgroundColor: "transparent",
-    containerStyle: styles.container,
-    listTitleStyle: styles.largeTitleStyle,
 };
 
 export default FloatingList;
