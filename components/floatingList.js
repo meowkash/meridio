@@ -57,19 +57,20 @@ const listStyle = (bgColor) => {
         borderBottomLeftRadius: 10,
         paddingLeft: 10,
         paddingBottom: 4,
-        marginBottom: 10,
+        marginBottom: "1%",
     };
 }
 const emptyList = (bgColor, listHeight) => {
     return {
         textAlign: "center",
-        
     };
 }
 const container = (viewHeight) => {
     return {
         height: viewHeight,
         textAlign: "center",
+        marginBottom: "1.5%",
+        marginTop: "1.5%"
     };
 }
 
