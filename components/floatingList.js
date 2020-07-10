@@ -33,17 +33,19 @@ const DATA = [
     },
 ]
 
+// Stylesheets
 const heading = (bgColor, fgColor) => {
     return {
-        fontSize: 18,
+        fontSize: 16,
         marginHorizontal: 8,
         backgroundColor: bgColor,
         color: fgColor,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
-        paddingLeft: 10,
+        paddingLeft: 12,
         paddingBottom: 4,
-        paddingTop: 4
+        paddingTop: 4,
+        lineHeight: 30,
     };
 }
 const listStyle = (bgColor) => {
@@ -55,10 +57,23 @@ const listStyle = (bgColor) => {
         borderBottomLeftRadius: 10,
         paddingLeft: 10,
         paddingBottom: 4,
-        marginBottom: 10
-    },
-};
+        marginBottom: 10,
+    };
+}
+const emptyList = (bgColor, listHeight) => {
+    return {
+        textAlign: "center",
+        
+    };
+}
+const container = (viewHeight) => {
+    return {
+        height: viewHeight,
+        textAlign: "center",
+    };
+}
 
+// Intelligently select the type of item in the list to be rendered
 ListItem = (item, index, separators, listComponentType) => {
     switch (listComponentType) {
         case 'UserAvatar':
@@ -84,9 +99,10 @@ ListItem = (item, index, separators, listComponentType) => {
     }
 }
 
-ListEmptyView = (emptyMessage) => {
+// Default view for when there is nothing in the list
+ListEmptyView = (emptyMessage, listBackground, listHeight) => {
     return (
-        <View style={styles.emptyList}>
+        <View style={emptyList(listBackground, listHeight)}>
             <Text style={{ textAlign: 'center' }}> {emptyMessage} </Text>
         </View>
 
@@ -100,20 +116,21 @@ const FloatingList = (props) => {
         isHorizontal,
         listElementType,
         emptyMessage,
-        borderColor,
         listBackground,
         titleBackground,
         titleColor,
+        height,
     } = props;
 
     return (
-        <View>
+        <View style={container(height)}>
             <Text style={heading(titleBackground, titleColor)}>
                 {listTitle}
+                <Ionicons name="chevron-forward"> </Ionicons>
             </Text>
             <FlatList
                 horizontal={isHorizontal}
-                style={styles.listStyle}
+                style={listStyle(listBackground)}
                 data={dataSrc}
                 renderItem={({ item, index, separators }) => (
                     <ListItem
@@ -137,13 +154,12 @@ FloatingList.propTypes = {
 FloatingList.defaultProps = {
     listTitle: "Meridio",
     isHorizontal: false,
-    borderColor: "#EFEFF4",
     titleBackground: "steelblue",
     listBackground: "silver",
     titleColor: "white",
     dataSrc: [],
     emptyMessage: "Sorry, nothing here",
-    avatarStyle: styles.avatar,
+    height: 100,
 };
 
 export default FloatingList;

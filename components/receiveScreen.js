@@ -91,6 +91,8 @@ export default function ReceiveScreen() {
             <FloatingList 
                 listTitle="Incoming"
                 listElementType="FileItem"
+                emptyMessage="No files received so far"
+                height={400}
             />
         </SafeAreaView>
     );
