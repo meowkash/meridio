@@ -46,37 +46,6 @@ const container = () => {
     };
 };
 
-const styles = StyleSheet.create({
-    heading: {
-        fontSize: 18,
-        marginHorizontal: 8,
-        backgroundColor: "silver",
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        paddingLeft: 10,
-        paddingBottom: 4,
-        paddingTop: 4
-    },
-    incoming: {
-        marginHorizontal: 8,
-        paddingTop: 4,
-        backgroundColor: "silver",
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        paddingLeft: 10,
-        paddingBottom: 4,
-        marginBottom: 10
-    },
-    notifications: {
-        marginHorizontal: 8,
-        paddingTop: 4,
-        backgroundColor: "silver",
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        paddingLeft: 10,
-        paddingBottom: 4,
-    }
-});
 export default function ReceiveScreen() {
     return (
         <SafeAreaView>

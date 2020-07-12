@@ -8,26 +8,32 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-const styles = StyleSheet.create({
-    name: {
+import Images from '../assets/assetIndex';
 
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottomWidth: 0.25,
+        paddingBottom: 2,
+        paddingTop: 2,
+        paddingRight: 16,
+        paddingLeft: 10,
+        borderBottomColor: '#A7A7A7'
+    },
+    name: {
+        alignItems: 'center',
+    },
+    size: {
+        
     },
     icon: {
         width: 40,
         height: 40,
-        resizeMode: 'contain'
-    },
-    container: {
-
+        resizeMode: 'contain',
     }
 });
-
-const FileIcon = (props) => {
-    var imgSrc = '../assets/' + props.iconType + '.png';
-    return (
-        <Image source={require('../assets/user_male.png')} style={styles.icon} />
-    );
-}
 
 const UserAvatar = (props) => {
     const {
@@ -37,16 +43,17 @@ const UserAvatar = (props) => {
     } = props;
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity>
-                <FileIcon
-                    iconType={fileType}>
-                </FileIcon>
+        <TouchableOpacity>
+            <View style={styles.container}>
+                <Image source={Images.file[fileType]} style={styles.icon} />
                 <Text style={styles.name}>
                     {fileName}
                 </Text>
-            </TouchableOpacity>
-        </View>
+                <Text style={styles.size}>
+                    {fileSize}
+                </Text>
+            </View>
+        </TouchableOpacity>
     );
 }
 

@@ -63,7 +63,7 @@ const listStyle = (bgColor) => {
         backgroundColor: bgColor,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
-        paddingLeft: 10,
+        paddingLeft: 0,
         paddingBottom: 4,
         marginBottom: "1%",
         shadowColor: "#000",
@@ -110,8 +110,9 @@ const ListItem = (props) => {
             return (
                 <FileItem
                     id={item.id}
-                    icon={item.icon}
-                    name={item.name}
+                    fileType={item.type}
+                    fileName={item.name}
+                    fileSize={item.size}
                 />
             );
         default:

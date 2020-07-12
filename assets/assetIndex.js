@@ -16,6 +16,21 @@ const images = {
         selfish: require('./user_selfish.png'),
         student: require('./user_student.png'),
     },
+    file : {
+        add: require('./file_add.png'),
+        archive: require('./file_archive.png'),
+        audio: require('./file_audio.png'),
+        audiobook: require('./file_audiobook.png'),
+        code: require('./file_code.png'),
+        completed: require('./file_completed.png'),
+        delete: require('./file_delete.png'),
+        document: require('./file_document.png'),
+        gif: require('./file_gif.png'),
+        image: require('./file_image.png'),
+        pdf: require('./file_pdf.png'),
+        spreadsheet: require('./file_spreadsheet.png'),
+        video: require('./file_video.png'),
+    },
     donate: require('./donate.png')
 };
 
