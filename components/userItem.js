@@ -3,34 +3,43 @@ import React, { Component } from 'react';
 import {
     Text,
     Image,
+    View,
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
 
-export default class UserAvatar extends Component {
-    constructor(props) {
-        super(props);
-    }
+const styles = StyleSheet.create({
+    text: {
 
-    render() {
-        return (
+    },
+    image: {
+
+    },
+    container: {
+
+    }
+});
+
+const UserAvatar = (props) => {
+    const {
+        avatarIcon,
+        userName,
+    } = props;
+
+    return (
+        <View style={styles.container}>
             <TouchableOpacity>
-                <Image style={this.styles.image}>
-                    
-                </Image>
-                <Text style={this.styles.text}>
-                    {this.props.name}
+                <Text>
+                    {userName}
                 </Text>
             </TouchableOpacity>
-        );
-    }
-
-    styles = StyleSheet.create({
-        text: {
-
-        },
-        image: {
-
-        }
-    });
+        </View>
+    );
 }
+
+UserAvatar.defaultProps = {
+    avatarIcon: 0,
+    userName: "AwesomeUser",
+};
+
+export default UserAvatar;

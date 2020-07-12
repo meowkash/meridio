@@ -75,14 +75,19 @@ const container = (viewHeight) => {
 }
 
 // Intelligently select the type of item in the list to be rendered
-ListItem = (item, index, separators, listComponentType) => {
+const ListItem = (props) => {
+    const {
+        item,
+        listComponentType
+    } = props;
+
     switch (listComponentType) {
-        case 'UserAvatar':
+        case "UserAvatar":
             return (
                 <UserAvatar
                     id={item.id}
-                    icon={item.icon}
-                    name={item.name}
+                    avatarIcon={item.icon}
+                    userName={item.name}
                 />
             );
         case 'FileItem':

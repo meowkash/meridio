@@ -15,10 +15,10 @@ class FileItem extends Component {
     render() {
         return (
             <TouchableOpacity>
-                <Image style={this.styles.image}>
+                <Image style={this.styles.icon}>
                     
                 </Image>
-                <Text style={this.styles.text}>
+                <Text>
                     {this.props.name}
                 </Text>
             </TouchableOpacity>
