@@ -8,31 +8,22 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import Images from '../assets/assetIndex';
+
 const styles = StyleSheet.create({
     text: {
         alignSelf: "center",
         alignItems: "center",
     },
     image: {
-        width: 80,
-        height: 80,
+        width: 90,
+        height: 90,
         resizeMode: 'contain'
     },
     container: {
         alignItems: "center",
     }
 });
-
-const AvatarImage = (props) => {
-    var imgSrc = '../assets/' + props.iconName + '.png';
-    console.log(imgSrc);
-    return (
-        <View>
-            <Image source={require('../assets/user_male.png')} style={styles.image} />
-        </View>
-
-    );
-}
 
 const UserAvatar = (props) => {
     const {
@@ -43,8 +34,7 @@ const UserAvatar = (props) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity>
-                <AvatarImage iconName={avatarIcon}>
-                </AvatarImage>
+                <Image source={Images.user[avatarIcon]} style={styles.image} />
                 <Text style={styles.text}>
                     {userName}
                 </Text>

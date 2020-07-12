@@ -89,7 +89,7 @@ const MeridioHeader = (props) => {
                 </Text>
             </View>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
-                <Ionicons size={38} name="ios-person-circle" color="steelblue"> </Ionicons>
+                <Image source={require('../assets/user_caveman.png')} style={{height: 40, width: 40, marginRight: 10}}/>
             </TouchableOpacity>
         </View>
     );
