@@ -40,44 +40,18 @@ const App: () => React$Node = () => {
                     largeTitleFontSize={22}
                 />
                 <NavigationContainer>
-                    {/* <Tab.Navigator
-                        screenOptions={({ route }) => ({
-                            tabBarIcon: ({ focused, color, size }) => {
-                                let iconName;
-
-                                if (route.name === 'Send') {
-                                    iconName = (Platform.OS === 'ios') ? 'ios-cloud-upload' : 'md-cloud-upload';
-                                } else if (route.name === 'Receive') {
-                                    iconName = (Platform.OS === 'ios') ? 'ios-cloud-download' : 'md-cloud-download';
-                                } else if (route.name === 'Settings') {
-                                    iconName = (Platform.OS === 'ios') ? 'ios-settings-outline' : 'md-settings-outline';
-                                }
-                                return (
-                                    <Ripple></Ripple>
-                                    <Ionicons name={iconName} size={size} color={color} />
-                                );
-                            },
-                        })}
-                        tabBarOptions={{
-                            activeTintColor: 'rebeccapurple',
-                            inactiveTintColor: 'grey',
-                        }}
-                    >
-                        <Tab.Screen name="Send" component={SendScreen} />
-                        <Tab.Screen name="Receive" component={ReceiveScreen} />
-                        <Tab.Screen name="Settings" component={SettingsScreen} />
-                    </Tab.Navigator> */}
                     <Tab.Navigator
                         initialRouteName="Send"
-                        activeColor="white"
-                        style={{ backgroundColor: 'tomato' }}
-                        shifting={true}
+                        activeColor="#519657"
+                        barStyle={{
+                            backgroundColor: "#FDFDFD",
+                        }}
                     >
                         <Tab.Screen
                             name="Send"
                             component={SendScreen}
                             options={{
-                                tabBarColor: '#3f51b5',
+                                // tabBarColor: '#3f51b5',
                                 tabBarLabel: 'Send',
                                 tabBarIcon: ({ color }) => (
                                     <MaterialCommunityIcons name="file-export-outline" color={color} size={24} />
@@ -89,7 +63,7 @@ const App: () => React$Node = () => {
                             component={ReceiveScreen}
                             options={{
                                 tabBarLabel: 'Receive',
-                                tabBarColor: '#00695c',
+                                // tabBarColor: '#00695c',
                                 tabBarIcon: ({ color }) => (
                                     <MaterialCommunityIcons name="file-import-outline" color={color} size={24} />
                                 ),
@@ -100,14 +74,13 @@ const App: () => React$Node = () => {
                             component={SettingsScreen}
                             options={{
                                 tabBarLabel: 'Settiings',
-                                tabBarColor: '#bf360c',
+                                // tabBarColor: '#bf360c',
                                 tabBarIcon: ({ color }) => (
                                     <Ionicons name="settings-outline" color={color} size={24} />
                                 ),
                             }}
                         />
-                    </Tab.Navigator>                    
-                    
+                    </Tab.Navigator>
                 </NavigationContainer>
             </SafeAreaView>
         </>
