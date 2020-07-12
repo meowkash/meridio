@@ -46,6 +46,14 @@ const heading = (bgColor, fgColor) => {
         paddingBottom: 4,
         paddingTop: 4,
         lineHeight: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
     };
 }
 const listStyle = (bgColor) => {
@@ -58,6 +66,14 @@ const listStyle = (bgColor) => {
         paddingLeft: 10,
         paddingBottom: 4,
         marginBottom: "1%",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
     };
 }
 const emptyList = (bgColor, listHeight) => {
@@ -70,7 +86,7 @@ const container = (viewHeight) => {
         height: viewHeight,
         textAlign: "center",
         marginBottom: "1.5%",
-        marginTop: "1.5%"
+        marginTop: "1.5%",
     };
 }
 

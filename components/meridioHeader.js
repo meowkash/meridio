@@ -20,9 +20,16 @@ const container = (backgroundColor, borderColor) => {
         margin: 8,
         borderRadius: 10,
         flexDirection: "row",
-        borderBottomWidth: 3,
-        alignItems: "flex-start",
-        justifyContent: "space-between"
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+        alignItems: "center",
+        justifyContent: "space-between",
     };
 };
 
@@ -65,7 +72,7 @@ const MeridioHeader = (props) => {
     return (
         <View style={containerStyle || container(backgroundColor, borderColor)}>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
-                <Ionicons size={22} name="ellipsis-vertical" color="midnightblue"> </Ionicons>
+                <Text>Logo</Text>
             </TouchableOpacity>
             <View>
                 <Text
@@ -83,7 +90,6 @@ const MeridioHeader = (props) => {
             </View>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
                 <Ionicons size={38} name="ios-person-circle" color="steelblue"> </Ionicons>
-                {/* <Image style={avatarStyle} source={imageSource} {...props} /> */}
             </TouchableOpacity>
         </View>
     );

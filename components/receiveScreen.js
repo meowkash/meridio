@@ -88,12 +88,15 @@ export default function ReceiveScreen() {
                 titleBackground="teal"
                 titleColor="white"
                 height="35%"
+                listBackground="#FDFDFD"
             />
             <FloatingList 
                 listTitle="Incoming"
                 listElementType="FileItem"
                 emptyMessage="No files received so far"
                 height="60%"
+                listBackground="#FDFDFD"
+                titleBackground="#519657"
             />
         </SafeAreaView>
     );

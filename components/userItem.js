@@ -10,7 +10,8 @@ import {
 
 const styles = StyleSheet.create({
     text: {
-
+        alignSelf: "center",
+        alignItems: "center",
     },
     image: {
         width: 80,
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain'
     },
     container: {
-
+        alignItems: "center",
     }
 });
 
@@ -44,7 +45,7 @@ const UserAvatar = (props) => {
             <TouchableOpacity>
                 <AvatarImage iconName={avatarIcon}>
                 </AvatarImage>
-                <Text>
+                <Text style={styles.text}>
                     {userName}
                 </Text>
             </TouchableOpacity>

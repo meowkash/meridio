@@ -18,29 +18,29 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import 'react-native-gesture-handler';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
+import SettingsScreen from './components/settingsScreen';
 import MeridioHeader from './components/meridioHeader';
 
-const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const App: () => React$Node = () => {
     return (
         <>
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{ flex: 1 }}>
                 <MeridioHeader
-                    backgroundColor="gainsboro"
-                    largeTitleFontColor="green"
+                    backgroundColor="#FDFDFD"
+                    largeTitleFontColor="#212121"
                     largeTitleFontSize={22}
                 />
                 <NavigationContainer>
-                    <Tab.Navigator
+                    {/* <Tab.Navigator
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused, color, size }) => {
                                 let iconName;
@@ -49,19 +49,65 @@ const App: () => React$Node = () => {
                                     iconName = (Platform.OS === 'ios') ? 'ios-cloud-upload' : 'md-cloud-upload';
                                 } else if (route.name === 'Receive') {
                                     iconName = (Platform.OS === 'ios') ? 'ios-cloud-download' : 'md-cloud-download';
+                                } else if (route.name === 'Settings') {
+                                    iconName = (Platform.OS === 'ios') ? 'ios-settings-outline' : 'md-settings-outline';
                                 }
-
-                                return <Ionicons name={iconName} size={size} color={color} />;
+                                return (
+                                    <Ripple></Ripple>
+                                    <Ionicons name={iconName} size={size} color={color} />
+                                );
                             },
                         })}
                         tabBarOptions={{
                             activeTintColor: 'rebeccapurple',
-                            inactiveTintColor: 'gray',
+                            inactiveTintColor: 'grey',
                         }}
                     >
                         <Tab.Screen name="Send" component={SendScreen} />
                         <Tab.Screen name="Receive" component={ReceiveScreen} />
-                    </Tab.Navigator>
+                        <Tab.Screen name="Settings" component={SettingsScreen} />
+                    </Tab.Navigator> */}
+                    <Tab.Navigator
+                        initialRouteName="Send"
+                        activeColor="white"
+                        style={{ backgroundColor: 'tomato' }}
+                        shifting={true}
+                    >
+                        <Tab.Screen
+                            name="Send"
+                            component={SendScreen}
+                            options={{
+                                tabBarColor: '#3f51b5',
+                                tabBarLabel: 'Send',
+                                tabBarIcon: ({ color }) => (
+                                    <MaterialCommunityIcons name="file-export-outline" color={color} size={24} />
+                                ),
+                            }}
+                        />
+                        <Tab.Screen
+                            name="Receive"
+                            component={ReceiveScreen}
+                            options={{
+                                tabBarLabel: 'Receive',
+                                tabBarColor: '#00695c',
+                                tabBarIcon: ({ color }) => (
+                                    <MaterialCommunityIcons name="file-import-outline" color={color} size={24} />
+                                ),
+                            }}
+                        />
+                        <Tab.Screen
+                            name="Settings"
+                            component={SettingsScreen}
+                            options={{
+                                tabBarLabel: 'Settiings',
+                                tabBarColor: '#bf360c',
+                                tabBarIcon: ({ color }) => (
+                                    <Ionicons name="settings-outline" color={color} size={24} />
+                                ),
+                            }}
+                        />
+                    </Tab.Navigator>                    
+                    
                 </NavigationContainer>
             </SafeAreaView>
         </>
