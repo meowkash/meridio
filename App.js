@@ -45,6 +45,7 @@ const App: () => React$Node = () => {
                         activeColor="#519657"
                         barStyle={{
                             backgroundColor: "#FDFDFD",
+                            paddingBottom: 10
                         }}
                     >
                         <Tab.Screen
@@ -52,6 +53,7 @@ const App: () => React$Node = () => {
                             component={SendScreen}
                             options={{
                                 // tabBarColor: '#3f51b5',
+                                tabBarAccessibilityLabel: 'Send',
                                 tabBarLabel: 'Send',
                                 tabBarIcon: ({ color }) => (
                                     <MaterialCommunityIcons name="file-export-outline" color={color} size={24} />
@@ -62,6 +64,7 @@ const App: () => React$Node = () => {
                             name="Receive"
                             component={ReceiveScreen}
                             options={{
+                                tabBarAccessibilityLabel: 'Receive',
                                 tabBarLabel: 'Receive',
                                 // tabBarColor: '#00695c',
                                 tabBarIcon: ({ color }) => (
@@ -73,6 +76,7 @@ const App: () => React$Node = () => {
                             name="Settings"
                             component={SettingsScreen}
                             options={{
+                                tabBarAccessibilityLabel: 'Settings',
                                 tabBarLabel: 'Settiings',
                                 // tabBarColor: '#bf360c',
                                 tabBarIcon: ({ color }) => (
