@@ -19,17 +19,17 @@ const DATA = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
         name: 'First Item',
-        icon: '0'
+        icon: 'user_selfish'
     },
     {
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
         name: 'Second Item',
-        icon: '1'
+        icon: 'user_male'
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
         name: 'Third Item',
-        icon: '2'
+        icon: 'user_female'
     },
 ]
 
@@ -106,7 +106,7 @@ const ListItem = (props) => {
 }
 
 // Default view for when there is nothing in the list
-ListEmptyView = (emptyMessage, listBackground, listHeight) => {
+const ListEmptyView = (emptyMessage, listBackground, listHeight) => {
     return (
         <View style={emptyList(listBackground, listHeight)}>
             <Text style={{ textAlign: 'center' }}> {emptyMessage} </Text>

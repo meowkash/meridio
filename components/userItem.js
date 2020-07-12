@@ -13,12 +13,25 @@ const styles = StyleSheet.create({
 
     },
     image: {
-
+        width: 80,
+        height: 80,
+        resizeMode: 'contain'
     },
     container: {
 
     }
 });
+
+const AvatarImage = (props) => {
+    var imgSrc = '../assets/' + props.iconName + '.png';
+    console.log(imgSrc);
+    return (
+        <View>
+            <Image source={require('../assets/user_male.png')} style={styles.image} />
+        </View>
+
+    );
+}
 
 const UserAvatar = (props) => {
     const {
@@ -29,6 +42,8 @@ const UserAvatar = (props) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity>
+                <AvatarImage iconName={avatarIcon}>
+                </AvatarImage>
                 <Text>
                     {userName}
                 </Text>
@@ -38,7 +53,7 @@ const UserAvatar = (props) => {
 }
 
 UserAvatar.defaultProps = {
-    avatarIcon: 0,
+    avatarIcon: 'user_male',
     userName: "AwesomeUser",
 };
 
