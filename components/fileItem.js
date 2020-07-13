@@ -12,24 +12,33 @@ import Images from '../assets/assetIndex';
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        borderBottomWidth: 0.25,
+        borderBottomWidth: 0.5,
         paddingBottom: 2,
         paddingTop: 2,
-        paddingRight: 16,
+        paddingRight: 0,
         paddingLeft: 10,
         borderBottomColor: '#A7A7A7'
     },
     name: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        flex: 5,
+        marginHorizontal: 10,
+        paddingLeft: 2,
+        paddingRight: 2,
     },
     size: {
-        
+        flex: 1.2,
+        textAlign: 'right',
+        marginRight: 10,
+        paddingRight: 2,
     },
     icon: {
-        width: 40,
+        // width: '10%',
+        flex: 1,
         height: 40,
         resizeMode: 'contain',
     }

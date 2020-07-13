@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     },
     container: {
         alignItems: "center",
+        paddingTop: 4,
+        paddingBottom: 4,
+        paddingLeft: 4,
     }
 });
 

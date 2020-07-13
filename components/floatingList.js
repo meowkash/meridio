@@ -59,11 +59,9 @@ const heading = (bgColor, fgColor) => {
 const listStyle = (bgColor) => {
     return {
         marginHorizontal: 8,
-        paddingTop: 4,
         backgroundColor: bgColor,
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
-        paddingLeft: 0,
         paddingBottom: 4,
         marginBottom: "1%",
         shadowColor: "#000",
