@@ -14,6 +14,8 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import UserAvatar from './userItem';
 import FileItem from './fileItem';
+import { theme } from '../defaults/theme';
+import { useDarkMode, DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
 
 const DATA = [
     {
@@ -34,32 +36,27 @@ const DATA = [
 ]
 
 // Stylesheets
-const heading = (bgColor, fgColor) => {
+const emptyList = (bgColor, listHeight) => {
     return {
-        fontSize: 16,
-        marginHorizontal: 8,
-        backgroundColor: bgColor,
-        color: fgColor,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-        paddingLeft: 12,
-        paddingBottom: 4,
-        paddingTop: 4,
-        lineHeight: 30,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 5,
-        },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
+        textAlign: "center",
     };
 }
-const listStyle = (bgColor) => {
+const container = (viewHeight) => {
     return {
+        height: viewHeight,
+        textAlign: "center",
+        marginBottom: "1%",
+        marginTop: "1%",
+        // backgroundColor: 'black',
+    };
+}
+const dynamicStyles = new DynamicStyleSheet({
+    container: {
+        // backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
+    },
+    listStyle: {
         marginHorizontal: 8,
-        backgroundColor: bgColor,
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
         paddingBottom: 4,
@@ -72,21 +69,29 @@ const listStyle = (bgColor) => {
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10,
-    };
-}
-const emptyList = (bgColor, listHeight) => {
-    return {
-        textAlign: "center",
-    };
-}
-const container = (viewHeight) => {
-    return {
-        height: viewHeight,
-        textAlign: "center",
-        marginBottom: "1.5%",
-        marginTop: "1.5%",
-    };
-}
+    },
+    heading: {
+        backgroundColor: new DynamicValue(theme.light.accent, theme.dark.accent),
+        fontSize: 16,
+        marginHorizontal: 8,
+        color: new DynamicValue(theme.light.primary, theme.dark.primary),
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+        paddingLeft: 12,
+        marginTop: '1%',
+        paddingBottom: 4,
+        paddingTop: 4,
+        lineHeight: 30,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+    }
+})
 
 // Intelligently select the type of item in the list to be rendered
 const ListItem = (props) => {
@@ -137,21 +142,20 @@ const FloatingList = (props) => {
         isHorizontal,
         listElementType,
         emptyMessage,
-        listBackground,
-        titleBackground,
-        titleColor,
         height,
     } = props;
 
+    const styles = useDynamicValue(dynamicStyles);
+
     return (
-        <View style={container(height)}>
-            <Text style={heading(titleBackground, titleColor)}>
+        <View style={[container(height), styles.container]}>
+            <Text style={styles.heading}>
                 {listTitle}
                 <Ionicons name="chevron-forward"> </Ionicons>
             </Text>
             <FlatList
                 horizontal={isHorizontal}
-                style={listStyle(listBackground)}
+                style={styles.listStyle}
                 data={dataSrc}
                 renderItem={({ item, index, separators }) => (
                     <ListItem
@@ -175,9 +179,6 @@ FloatingList.propTypes = {
 FloatingList.defaultProps = {
     listTitle: "Meridio",
     isHorizontal: false,
-    titleBackground: "steelblue",
-    listBackground: "silver",
-    titleColor: "white",
     dataSrc: [],
     emptyMessage: "Sorry, nothing here",
     height: 100,

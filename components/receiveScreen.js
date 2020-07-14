@@ -11,9 +11,10 @@ import {
     FlatList
 } from 'react-native';
 
-import UserAvatar from './userItem';
-import FileItem from './fileItem';
 import FloatingList from './floatingList';
+import { theme } from '../defaults/theme';
+import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
+
 
 const DATA = [
     {
@@ -33,39 +34,29 @@ const DATA = [
     },
 ]
 
-const container = () => {
-    return {
-        paddingTop: 8,
-        paddingBottom: 8,
-        paddingLeft: 16,
-        margin: 8,
-        borderRadius: 10,
-        borderBottomWidth: 3,
-        alignItems: "flex-start",
-        justifyContent: "space-between"
-    };
-};
+const dynamicStyles = new DynamicStyleSheet({
+    container: {
+        backgroundColor: new DynamicValue(theme.light.background, theme.dark.background),
+        flex: 1
+    }
+})
 
 export default function ReceiveScreen() {
+    const styles = useDynamicValue(dynamicStyles);
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <FloatingList 
                 dataSrc={DATA}
                 isHorizontal={true}
                 listTitle="Ongoing Shares"
                 listElementType="UserAvatar"
-                titleBackground="teal"
-                titleColor="white"
                 height="30%"
-                listBackground="#FDFDFD"
             />
             <FloatingList 
                 listTitle="Incoming"
                 listElementType="FileItem"
                 emptyMessage="No files received so far"
-                height="65%"
-                listBackground="#FDFDFD"
-                titleBackground="#519657"
+                height="66%"
             />
         </SafeAreaView>
     );

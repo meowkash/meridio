@@ -17,36 +17,46 @@ import {
     ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { NavigationContainer } from '@react-navigation/native';
+
 import 'react-native-gesture-handler';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { NavigationContainer } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic'
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
 import MeridioHeader from './components/meridioHeader';
+import { theme } from './defaults/theme';
 
 const Tab = createMaterialBottomTabNavigator();
 
+const dynamicStyle = new DynamicStyleSheet({
+    container: {
+        flex: 1,
+        backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
+    },
+    tabBar: {
+        backgroundColor: new DynamicValue(theme.light.background, theme.dark.background),
+        paddingBottom: 10
+    }
+})
+
 const App: () => React$Node = () => {
+    const styles = useDynamicValue(dynamicStyle);
     return (
         <>
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={styles.container}>
                 <MeridioHeader
-                    backgroundColor="#FDFDFD"
-                    largeTitleFontColor="#212121"
                     largeTitleFontSize={22}
                 />
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
                         activeColor="#519657"
-                        barStyle={{
-                            backgroundColor: "#FDFDFD",
-                            paddingBottom: 10
-                        }}
+                        barStyle={styles.tabBar}
                     >
                         <Tab.Screen
                             name="Send"

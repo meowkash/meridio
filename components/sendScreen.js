@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 
 import FloatingList from './floatingList';
+import { theme } from '../defaults/theme';
+import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
 
 const DATA = [
     {
@@ -45,16 +47,22 @@ const userDATA = [
     },
 ]
 
+const dynamicStyles = new DynamicStyleSheet({
+    container: {
+        backgroundColor: new DynamicValue(theme.light.background, theme.dark.background),
+        flex: 1
+    }
+})
+
 export default function SendScreen() {
+    const styles = useDynamicValue(dynamicStyles);
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <FloatingList
                 dataSrc={userDATA}
                 isHorizontal={true}
                 listTitle="Nearby Users"
                 listElementType="UserAvatar"
-                listBackground="#FDFDFD"
-                titleBackground="#519657"
                 height="30%"
             />
             <FloatingList
@@ -62,9 +70,7 @@ export default function SendScreen() {
                 isHorizontal={false}
                 listTitle="Files"
                 listElementType="FileItem"
-                titleBackground="#519657"
-                listBackground="#FDFDFD"
-                height="65%"
+                height="66%"
             />
         </SafeAreaView>
     );

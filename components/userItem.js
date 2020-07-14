@@ -9,11 +9,14 @@ import {
 } from 'react-native';
 
 import Images from '../assets/assetIndex';
+import { theme } from '../defaults/theme';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
 
-const styles = StyleSheet.create({
+const dynamicStyle = new DynamicStyleSheet({
     text: {
         alignSelf: "center",
         alignItems: "center",
+        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
     image: {
         width: 90,
@@ -26,13 +29,15 @@ const styles = StyleSheet.create({
         paddingBottom: 4,
         paddingLeft: 4,
     }
-});
+})
 
 const UserAvatar = (props) => {
     const {
         avatarIcon,
         userName,
     } = props;
+    
+    const styles = useDynamicValue(dynamicStyle);
 
     return (
         <View style={styles.container}>

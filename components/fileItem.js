@@ -9,16 +9,18 @@ import {
 } from 'react-native';
 
 import Images from '../assets/assetIndex';
+import { theme } from '../defaults/theme';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
 
-const styles = StyleSheet.create({
+const dynamicStyles = new DynamicStyleSheet({
     container: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
         borderBottomWidth: 0.5,
-        paddingBottom: 2,
-        paddingTop: 2,
+        paddingBottom: 4,
+        paddingTop: 4,
         paddingRight: 0,
         paddingLeft: 10,
         borderBottomColor: '#A7A7A7'
@@ -29,20 +31,21 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         paddingLeft: 2,
         paddingRight: 2,
+        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
     size: {
         flex: 1.2,
         textAlign: 'right',
         marginRight: 10,
         paddingRight: 2,
+        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
     icon: {
-        // width: '10%',
         flex: 1,
         height: 40,
         resizeMode: 'contain',
     }
-});
+})
 
 const UserAvatar = (props) => {
     const {
@@ -50,6 +53,8 @@ const UserAvatar = (props) => {
         fileName,
         fileSize,
     } = props;
+
+    const styles = useDynamicValue(dynamicStyles);
 
     return (
         <TouchableOpacity>

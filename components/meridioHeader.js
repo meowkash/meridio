@@ -7,17 +7,19 @@ import {
     TouchableOpacity,
     Platform
 } from "react-native";
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { theme } from '../defaults/theme';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
 
-const container = (backgroundColor, borderColor) => {
-    return {
-        borderColor,
-        backgroundColor,
+const dynamicStyle = new DynamicStyleSheet({
+    container: {
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         paddingTop: 8,
         paddingBottom: 8,
         paddingLeft: 16,
-        margin: 8,
+        marginHorizontal: 8,
+        marginTop: '2%',
+        marginBottom: '1%',
         borderRadius: 10,
         flexDirection: "row",
         shadowColor: "#000",
@@ -30,20 +32,7 @@ const container = (backgroundColor, borderColor) => {
         elevation: 10,
         alignItems: "center",
         justifyContent: "space-between",
-    };
-};
-
-const _largeTitleStyle = (fontColor, fontSize, fontWeight) => {
-    return {
-        fontSize,
-        fontWeight,
-        lineHeight: 41,
-        color: fontColor,
-        letterSpacing: Platform.OS === "ios" ? 0.41 : undefined
-    };
-};
-
-const styles = {
+    },
     avatar: {
         height: 43,
         width: 43,
@@ -52,7 +41,19 @@ const styles = {
     avatarContainerStyle: {
         alignSelf: "center",
         justifyContent: "center"
+    },
+    titleStyle: {
+        color: new DynamicValue(theme.light.primary, theme.dark.primary),
     }
+})
+
+const _largeTitleStyle = (fontSize, fontWeight) => {
+    return {
+        fontSize,
+        fontWeight,
+        lineHeight: 41,
+        letterSpacing: Platform.OS === "ios" ? 0.41 : undefined
+    };
 };
 
 const MeridioHeader = (props) => {
@@ -64,32 +65,27 @@ const MeridioHeader = (props) => {
         containerStyle,
         largeTitleStyle,
         borderColor,
-        backgroundColor,
         largeTitleFontSize,
         largeTitleFontColor,
         largeTitleFontWeight,
     } = props;
+
+    const styles = useDynamicValue(dynamicStyle);
+
     return (
-        <View style={containerStyle || container(backgroundColor, borderColor)}>
+        <View style={styles.container}>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
                 <Text>Logo</Text>
             </TouchableOpacity>
             <View>
                 <Text
-                    style={
-                        largeTitleStyle ||
-                        _largeTitleStyle(
-                            largeTitleFontColor,
-                            largeTitleFontSize,
-                            largeTitleFontWeight
-                        )
-                    }
+                    style={[styles.titleStyle, _largeTitleStyle(largeTitleFontSize, largeTitleFontWeight)]}
                 >
                     {largeTitle}
                 </Text>
             </View>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
-                <Image source={require('../assets/user_caveman.png')} style={{height: 40, width: 40, marginRight: 10}}/>
+                <Image source={require('../assets/user_caveman.png')} style={{ height: 40, width: 40, marginRight: 10 }} />
             </TouchableOpacity>
         </View>
     );
@@ -97,7 +93,6 @@ const MeridioHeader = (props) => {
 
 MeridioHeader.propTypes = {
     largeTitle: PropTypes.string,
-    backgroundColor: PropTypes.string,
     largeTitleFontSize: PropTypes.number,
     largeTitleFontColor: PropTypes.string,
     largeTitleFontWeight: PropTypes.string,
@@ -106,12 +101,7 @@ MeridioHeader.propTypes = {
 MeridioHeader.defaultProps = {
     largeTitle: "Meridio",
     largeTitleFontSize: 30,
-    borderColor: "#EFEFF4",
-    avatarStyle: styles.avatar,
     largeTitleFontWeight: "300",
-    backgroundColor: "transparent",
-    containerStyle: styles.container,
-    largeTitleStyle: styles.largeTitleStyle,
 };
 
 export default MeridioHeader;
