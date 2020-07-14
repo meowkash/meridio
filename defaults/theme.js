@@ -6,14 +6,16 @@ export const theme = {
         secondary: '#242424',
         accent: '#519657',
         background: '#FFFFFF',
-        secondaryBackground: '#FAFAFA',
+        secondaryBackground: '#FDFDFD',
+        tertiaryBackground: '#FAFAFA',
     },
     dark: {
-        primary: '#FFFFFF',
+        primary: '#F3F3F3',
         secondary: '#EBEBF5',
         accent: '#20672d',
-        background: '#000000',
+        background: '#121212',
         secondaryBackground: '#242424',
+        tertiaryBackground: '#2C2C2C',
     }
 };
 
@@ -21,7 +23,8 @@ export const theme = {
 * Primary : For Primary Text
 * Secondary : For Secondary Text
 * Background : For Primary Background
-* Secondary Background : For Secondary Background
+* Secondary Background : For Secondary Background (Header/Footer)
+* Tertiary Backgrounf : For Tertiary Background
 * Accent : Color for most UI Elements
 */
 

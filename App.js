@@ -39,7 +39,7 @@ const dynamicStyle = new DynamicStyleSheet({
         backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
     },
     tabBar: {
-        backgroundColor: new DynamicValue(theme.light.background, theme.dark.background),
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         paddingBottom: 10
     }
 })

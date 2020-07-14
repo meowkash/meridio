@@ -56,10 +56,11 @@ const dynamicStyles = new DynamicStyleSheet({
     },
     listStyle: {
         marginHorizontal: 8,
-        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
+        backgroundColor: new DynamicValue(theme.light.tertiaryBackground, theme.dark.tertiaryBackground),
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
         paddingBottom: 4,
+        paddingTop: 4,
         marginBottom: "1%",
         shadowColor: "#000",
         shadowOffset: {
