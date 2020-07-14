@@ -12,28 +12,14 @@ import {
 } from "react-native";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import UserAvatar from './userItem';
 import FileItem from './fileItem';
+import OngoingShare from './ongoingShare';
+import CompletedShare from './completedShare';
+
 import { theme } from '../defaults/theme';
 import { useDarkMode, DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
-
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        name: 'First Item',
-        icon: 'user_selfish'
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        name: 'Second Item',
-        icon: 'user_male'
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        name: 'Third Item',
-        icon: 'user_female'
-    },
-]
 
 // Stylesheets
 const emptyList = (bgColor, listHeight) => {
@@ -52,7 +38,7 @@ const container = (viewHeight) => {
 }
 const dynamicStyles = new DynamicStyleSheet({
     container: {
-        // backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
+        backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
     },
     listStyle: {
         marginHorizontal: 8,
@@ -117,6 +103,22 @@ const ListItem = (props) => {
                     fileType={item.type}
                     fileName={item.name}
                     fileSize={item.size}
+                />
+            );
+        case 'OngoingShare':
+            return (
+                <OngoingShare
+                    id={item.id}
+                    avatarIcon={item.icon}
+                    userName={item.name}
+                />
+            );
+        case 'CompletedShare':
+            return (
+                <CompletedShare
+                    id={item.id}
+                    avatarIcon={item.icon}
+                    userName={item.name}
                 />
             );
         default:
