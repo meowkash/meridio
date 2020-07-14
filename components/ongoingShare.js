@@ -8,6 +8,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import { ProgressBar, Colors } from 'react-native-paper';
+
 import Images from '../assets/assetIndex';
 import { theme } from '../defaults/theme';
 import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
@@ -25,7 +27,7 @@ const dynamicStyles = new DynamicStyleSheet({
         paddingLeft: 10,
         borderBottomColor: '#A7A7A7'
     },
-    name: {
+    progress: {
         alignItems: 'flex-start',
         flex: 5,
         marginHorizontal: 10,
@@ -33,7 +35,7 @@ const dynamicStyles = new DynamicStyleSheet({
         paddingRight: 2,
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
-    size: {
+    items: {
         flex: 1.2,
         textAlign: 'right',
         marginRight: 10,
@@ -41,17 +43,16 @@ const dynamicStyles = new DynamicStyleSheet({
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
     icon: {
-        flex: 1,
-        height: 40,
-        resizeMode: 'contain',
+
     }
 })
 
 const OngoingShare = (props) => {
     const {
-        fileType,
-        fileName,
-        fileSize,
+        userName,
+        completedPercentage,
+        itemsDone,
+        itemsTotal,
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
@@ -60,11 +61,9 @@ const OngoingShare = (props) => {
         <TouchableOpacity>
             <View style={styles.container}>
                 <Image source={Images.file[fileType]} style={styles.icon} />
-                <Text style={styles.name}>
-                    {fileName}
-                </Text>
-                <Text style={styles.size}>
-                    {fileSize}
+                <ProgressBar style={styles.progress} progress={completedPercentage} />
+                <Text style={styles.items}>
+                    {itemsDone}/{itemsTotal}
                 </Text>
             </View>
         </TouchableOpacity>

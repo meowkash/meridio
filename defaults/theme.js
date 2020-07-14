@@ -25,6 +25,6 @@ export const theme = {
 * Background : For Primary Background
 * Secondary Background : For Secondary Background (Header/Footer)
 * Tertiary Backgrounf : For Tertiary Background
-* Accent : Color for most UI Elements
+* Accent : Colors for most UI Elements (can have options for different stylings. TODO)
 */
 
