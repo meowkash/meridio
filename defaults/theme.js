@@ -5,6 +5,9 @@ export const theme = {
         primary: '#000000',
         secondary: '#242424',
         accent: '#519657',
+        accentOptions: {
+
+        },
         background: '#FFFFFF',
         secondaryBackground: '#FDFDFD',
         tertiaryBackground: '#FAFAFA',
@@ -13,6 +16,9 @@ export const theme = {
         primary: '#F3F3F3',
         secondary: '#EBEBF5',
         accent: '#20672d',
+        accentOptions: {
+
+        },
         background: '#121212',
         secondaryBackground: '#242424',
         tertiaryBackground: '#2C2C2C',
@@ -25,6 +31,7 @@ export const theme = {
 * Background : For Primary Background
 * Secondary Background : For Secondary Background (Header/Footer)
 * Tertiary Backgrounf : For Tertiary Background
-* Accent : Colors for most UI Elements (can have options for different stylings. TODO)
+* Accent : Colors for most UI Elements
+* Accent Options : Choice of 5-6 accent colours for the user and dev
 */
 

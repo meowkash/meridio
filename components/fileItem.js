@@ -47,7 +47,7 @@ const dynamicStyles = new DynamicStyleSheet({
     }
 })
 
-const UserAvatar = (props) => {
+const FileItem = (props) => {
     const {
         fileType,
         fileName,
@@ -71,9 +71,10 @@ const UserAvatar = (props) => {
     );
 }
 
-UserAvatar.defaultProps = {
-    avatarIcon: 'user_male',
-    userName: "AwesomeUser",
+FileItem.defaultProps = {
+    fileName: 'A Sample File',
+    fileType: 'document',
+    fileSize: '0 B'
 };
 
-export default UserAvatar;
+export default FileItem;

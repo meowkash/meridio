@@ -18,8 +18,8 @@ const dynamicStyle = new DynamicStyleSheet({
         paddingBottom: 8,
         paddingLeft: 16,
         marginHorizontal: 8,
-        marginTop: '2%',
-        marginBottom: '1%',
+        marginTop: '3%',
+        marginBottom: '2%',
         borderRadius: 10,
         flexDirection: "row",
         shadowColor: "#000",
@@ -82,7 +82,7 @@ const MeridioHeader = (props) => {
     return (
         <View style={[container(flex), styles.container]}>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
-                <Text>Logo</Text>
+                <Text style={{color: theme.light.accent}}>Logo</Text>
             </TouchableOpacity>
             <View>
                 <Text

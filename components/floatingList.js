@@ -31,9 +31,8 @@ const container = (viewFlex) => {
     return {
         flex: viewFlex,
         textAlign: "center",
-        marginBottom: "1%",
-        marginTop: "1%",
-        // backgroundColor: 'black',
+        marginBottom: "2%",
+        
     };
 }
 const dynamicStyles = new DynamicStyleSheet({
