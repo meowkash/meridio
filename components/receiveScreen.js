@@ -50,7 +50,6 @@ export default function ReceiveScreen() {
                 flex={1}
             />
             <FloatingList 
-                dataSrc={DATA}
                 isHorizontal={true}
                 listTitle="Ongoing Shares"
                 listElementType="UserAvatar"

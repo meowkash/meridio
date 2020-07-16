@@ -22,17 +22,12 @@ import { theme } from '../defaults/theme';
 import { useDarkMode, DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
 
 // Stylesheets
-const emptyList = (bgColor, listHeight) => {
-    return {
-        textAlign: "center",
-    };
-}
 const container = (viewFlex) => {
     return {
         flex: viewFlex,
         textAlign: "center",
         marginBottom: "2%",
-        
+
     };
 }
 const dynamicStyles = new DynamicStyleSheet({
@@ -63,6 +58,8 @@ const dynamicStyles = new DynamicStyleSheet({
         color: new DynamicValue(theme.light.primary, theme.dark.primary),
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
+        borderBottomRightRadius: 2,
+        borderBottomLeftRadius: 2,
         paddingLeft: 12,
         marginTop: '1%',
         paddingBottom: 4,
@@ -78,6 +75,34 @@ const dynamicStyles = new DynamicStyleSheet({
         elevation: 10,
     }
 })
+
+const emptyListDynamic = new DynamicStyleSheet({
+    container: {
+        textAlign: "center",
+        alignSelf: "center",
+        textAlignVertical: "center",
+        flex: 1
+    },
+    text: {
+        color: new DynamicValue(theme.light.secondary, theme.dark.secondary),
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "center",
+        flex: 1,
+        backgroundColor: 'white'
+    }
+});
+
+// Default view for when there is nothing in the list
+const ListEmptyView = (emptyMessage) => {
+    const emptyListStyles = useDynamicValue(emptyListDynamic);
+    return (
+        <View style={emptyListStyles.container}>
+            <Text style={emptyListStyles.text}> {emptyMessage} </Text>
+        </View>
+
+    );
+}
 
 // Intelligently select the type of item in the list to be rendered
 const ListItem = (props) => {
@@ -125,16 +150,6 @@ const ListItem = (props) => {
                 <Text> {listComponentType} {item.name} </Text>
             );
     }
-}
-
-// Default view for when there is nothing in the list
-const ListEmptyView = (emptyMessage, listBackground, listHeight) => {
-    return (
-        <View style={emptyList(listBackground, listHeight)}>
-            <Text style={{ textAlign: 'center' }}> {emptyMessage} </Text>
-        </View>
-
-    );
 }
 
 const FloatingList = (props) => {

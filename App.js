@@ -23,7 +23,13 @@ import 'react-native-gesture-handler';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic'
+
+import { 
+    useDarkMode,
+    DynamicStyleSheet, 
+    DynamicValue, 
+    useDynamicValue 
+} from 'react-native-dynamic'
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
@@ -39,12 +45,13 @@ const dynamicStyle = new DynamicStyleSheet({
     },
     tabBar: {
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
-        paddingBottom: 10
+        paddingBottom: 10,
     }
 })
 
 const App: () => React$Node = () => {
     const styles = useDynamicValue(dynamicStyle);
+    const isDarkMode = useDarkMode();
     return (
         <>
             <SafeAreaView style={styles.container}>
@@ -54,7 +61,7 @@ const App: () => React$Node = () => {
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
-                        activeColor="#519657"
+                        activeColor={isDarkMode? theme.dark.accent: theme.light.accent}
                         barStyle={styles.tabBar}
                     >
                         <Tab.Screen
