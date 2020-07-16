@@ -56,6 +56,12 @@ const _largeTitleStyle = (fontSize, fontWeight) => {
     };
 };
 
+const container = (viewFlex) => {
+    return {
+        flex: viewFlex,
+    };
+}
+
 const MeridioHeader = (props) => {
     const {
         onPress,
@@ -68,12 +74,13 @@ const MeridioHeader = (props) => {
         largeTitleFontSize,
         largeTitleFontColor,
         largeTitleFontWeight,
+        flex,
     } = props;
 
     const styles = useDynamicValue(dynamicStyle);
 
     return (
-        <View style={styles.container}>
+        <View style={[container(flex), styles.container]}>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
                 <Text>Logo</Text>
             </TouchableOpacity>

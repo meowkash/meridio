@@ -1,5 +1,3 @@
-// TODO : Aakash
-
 import React, { Component } from 'react';
 
 import {

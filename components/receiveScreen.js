@@ -14,7 +14,7 @@ import {
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
-
+import MeridioHeader from './meridioHeader';
 
 const DATA = [
     {
@@ -45,18 +45,22 @@ export default function ReceiveScreen() {
     const styles = useDynamicValue(dynamicStyles);
     return (
         <SafeAreaView style={styles.container}>
+            <MeridioHeader
+                largeTitleFontSize={22}
+                flex={1}
+            />
             <FloatingList 
                 dataSrc={DATA}
                 isHorizontal={true}
                 listTitle="Ongoing Shares"
                 listElementType="UserAvatar"
-                height="30%"
+                flex={5}
             />
             <FloatingList 
                 listTitle="Incoming"
                 listElementType="FileItem"
                 emptyMessage="No files received so far"
-                height="66%"
+                flex={12}
             />
         </SafeAreaView>
     );

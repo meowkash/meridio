@@ -7,6 +7,7 @@ import {
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
+import MeridioHeader from './meridioHeader';
 
 const DATA = [
     {
@@ -58,19 +59,23 @@ export default function SendScreen() {
     const styles = useDynamicValue(dynamicStyles);
     return (
         <SafeAreaView style={styles.container}>
+            <MeridioHeader
+                largeTitleFontSize={22}
+                flex={1}
+            />
             <FloatingList
                 dataSrc={userDATA}
                 isHorizontal={true}
                 listTitle="Nearby Users"
                 listElementType="UserAvatar"
-                height="30%"
+                flex={5}
             />
             <FloatingList
                 dataSrc={DATA}
                 isHorizontal={false}
                 listTitle="Files"
                 listElementType="FileItem"
-                height="66%"
+                flex={12}
             />
         </SafeAreaView>
     );

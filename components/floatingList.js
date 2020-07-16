@@ -27,9 +27,9 @@ const emptyList = (bgColor, listHeight) => {
         textAlign: "center",
     };
 }
-const container = (viewHeight) => {
+const container = (viewFlex) => {
     return {
-        height: viewHeight,
+        flex: viewFlex,
         textAlign: "center",
         marginBottom: "1%",
         marginTop: "1%",
@@ -145,13 +145,13 @@ const FloatingList = (props) => {
         isHorizontal,
         listElementType,
         emptyMessage,
-        height,
+        flex,
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
 
     return (
-        <View style={[container(height), styles.container]}>
+        <View style={[container(flex), styles.container]}>
             <Text style={styles.heading}>
                 {listTitle}
                 <Ionicons name="chevron-forward"> </Ionicons>

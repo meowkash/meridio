@@ -28,7 +28,6 @@ import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-d
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
-import MeridioHeader from './components/meridioHeader';
 import { theme } from './defaults/theme';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -49,9 +48,9 @@ const App: () => React$Node = () => {
     return (
         <>
             <SafeAreaView style={styles.container}>
-                <MeridioHeader
+                {/* <MeridioHeader
                     largeTitleFontSize={22}
-                />
+                /> */}
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
