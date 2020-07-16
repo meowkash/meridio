@@ -6,11 +6,12 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
-    Button
+    Button,
 } from "react-native";
-import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import { theme } from "../defaults/theme";
 import Images from '../assets/assetIndex';
+import { FlatList } from "react-native-gesture-handler";
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -19,7 +20,7 @@ const dynamicStyles = new DynamicStyleSheet({
     },
     topBar: {
         marginTop: "3%",
-        flex: 1,
+        flex: 2,
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         marginHorizontal: 12,
         borderRadius: 10,
@@ -56,7 +57,7 @@ const dynamicStyles = new DynamicStyleSheet({
         paddingBottom: 4,
     },
     settingsContainer: {
-        flex: 3,
+        flex: 4,
         marginTop: "3%",
         marginBottom: "3%",
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
@@ -73,7 +74,7 @@ const dynamicStyles = new DynamicStyleSheet({
         elevation: 10,
     },
     supportContainer: {
-        flex: 1,
+        flex: 3,
         marginBottom: "3%",
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         marginHorizontal: 12,
@@ -98,6 +99,28 @@ const dynamicStyles = new DynamicStyleSheet({
         alignItems: 'center',
         paddingTop: 2,
         color: new DynamicValue(theme.light.primary, theme.dark.primary)
+    },
+    settingsOption: {
+        height: "25%",
+        marginBottom: "2%",
+        borderColor:'#A7A7A7',
+        borderBottomWidth: 0.5,
+        paddingBottom: 4,
+        paddingTop: 4,
+    },
+    accentButton: {
+        height: 16,
+        width: 16,
+        borderRadius: 8,
+        borderColor: '#FFFFFF',
+        borderWidth: 1,
+        marginHorizontal: 4,
+    },
+    settingItem: {
+        fontSize: 16,
+        marginTop: 4,
+        marginBottom: 4,
+        color: new DynamicValue(theme.light.primary, theme.dark.primary)
     }
 });
 
@@ -115,6 +138,7 @@ const SettingsScreen = (props) => {
     } = props;
     const styles = useDynamicValue(dynamicStyles);
 
+    const isDarkMode = useDarkMode();
     return (
         < View style={styles.container}>
             <View style={styles.topBar}>
@@ -131,10 +155,36 @@ const SettingsScreen = (props) => {
             </View>
             <View style={styles.settingsContainer}>
                 <Text style={styles.listHeadingStyle}>Personalisation</Text>
+                <View style={styles.settingsOption}>
+                    <Text style={styles.settingItem}> Accent Color </Text>
+                    <View style={{ flexDirection: "row" }}>
+                        <TouchableOpacity>
+                            <Image backgroundColor={isDarkMode ? theme.light.accentOptions.blue : theme.dark.accentOptions.blue} style={styles.accentButton} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image backgroundColor={isDarkMode ? theme.light.accentOptions.green : theme.dark.accentOptions.green} style={styles.accentButton} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image backgroundColor={isDarkMode ? theme.light.accentOptions.pink : theme.dark.accentOptions.pink} style={styles.accentButton} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image backgroundColor={isDarkMode ? theme.light.accentOptions.purple : theme.dark.accentOptions.purple} style={styles.accentButton} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image backgroundColor={isDarkMode ? theme.light.accentOptions.orange : theme.dark.accentOptions.orange} style={styles.accentButton} />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image backgroundColor={isDarkMode ? theme.light.accentOptions.red : theme.dark.accentOptions.red} style={styles.accentButton} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.settingsOption}>
+
+                </View>
             </View>
             <View style={styles.supportContainer}>
                 <Text style={styles.listHeadingStyle}>Support Us!</Text>
-                
+
             </View>
         </View>
     );
