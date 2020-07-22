@@ -6,7 +6,8 @@ import {
     View,
     Text,
     FlatList,
-    Platform
+    Platform,
+    PermissionsAndroid
 } from 'react-native';
 
 import {
@@ -24,12 +25,17 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { 
+import {
     useDarkMode,
-    DynamicStyleSheet, 
-    DynamicValue, 
-    useDynamicValue 
+    DynamicStyleSheet,
+    DynamicValue,
+    useDynamicValue
 } from 'react-native-dynamic'
+
+import {
+    initialize,
+    startDiscoveringPeers
+} from "react-native-wifi-p2p";
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
@@ -52,6 +58,28 @@ const dynamicStyle = new DynamicStyleSheet({
 const App: () => React$Node = () => {
     const styles = useDynamicValue(dynamicStyle);
     const isDarkMode = useDarkMode();
+
+    initialize()
+        .then((isInitializedSuccessfully) => console.log('isInitializedSuccessfully: ', isInitializedSuccessfully))
+        .catch((err) => console.log('initialization was failed. Err: ', err));
+
+    PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        {
+            'title': 'Access to wi-fi P2P mode',
+            'message': 'ACCESS_FINE_LOCATION'
+        },
+    )
+        .then(granted => {
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log("You can use the p2p mode")
+                startDiscoveringPeers()
+                    .then(() => console.log('Starting of discovering was successful'))
+                    .catch(err => console.warn({ err }));
+            } else {
+                console.log("Permission denied: p2p mode will not work")
+            }
+        })
     return (
         <>
             <SafeAreaView style={styles.container}>
@@ -61,7 +89,7 @@ const App: () => React$Node = () => {
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
-                        activeColor={isDarkMode? theme.dark.accent: theme.light.accent}
+                        activeColor={isDarkMode ? theme.dark.accent : theme.light.accent}
                         barStyle={styles.tabBar}
                     >
                         <Tab.Screen

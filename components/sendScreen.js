@@ -2,51 +2,18 @@ import React, { Component } from 'react';
 
 import {
     SafeAreaView,
+    ToastAndroid,
+    Alert
 } from 'react-native';
+
+import {
+    startDiscoveringPeers
+} from "react-native-wifi-p2p";
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
-
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        name: 'A Music File',
-        type: 'audio',
-        size: '4.7M'
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        name: 'A Video File',
-        type: 'video',
-        size: '1.7G'
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        name: 'A Code File',
-        type: 'code',
-        size: '14.8K'
-    },
-]
-
-const userDATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        name: 'First',
-        icon: 'selfish'
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        name: 'Second',
-        icon: 'male'
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        name: 'Third',
-        icon: 'female'
-    },
-]
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -55,8 +22,9 @@ const dynamicStyles = new DynamicStyleSheet({
     }
 })
 
-export default function SendScreen() {
+export default function SendScreen() {    
     const styles = useDynamicValue(dynamicStyles);
+
     return (
         <SafeAreaView style={styles.container}>
             <MeridioHeader
@@ -64,14 +32,12 @@ export default function SendScreen() {
                 flex={1}
             />
             <FloatingList
-                dataSrc={userDATA}
                 isHorizontal={true}
                 listTitle="Nearby Users"
                 listElementType="UserAvatar"
                 flex={5}
             />
             <FloatingList
-                dataSrc={DATA}
                 isHorizontal={false}
                 listTitle="Files"
                 listElementType="FileItem"
