@@ -1,8 +1,21 @@
-const FilesReducer = (state, action) => {
-    switch(action.type) {
-        case 'FILE_ADDED':
+import * as ActionTypes from "../actions/actionTypes";
 
-        case 'FILE_RECEIVED':
+// Default initial state 
+const initialState = {
+    
+}
+
+const FilesReducer = (state = initialState, action) => {
+    switch(action.type) {
+        case ActionTypes.FILE_SELECTED:
+    
+        case ActionTypes.FILE_ADDED:
+
+        case ActionTypes.FILE_INCOMING:
+
+        case ActionTypes.FILE_RECEIVED:
+
+        case ActionTypes.FILE_RECEIVING_FAILED:
 
     }
 }
