@@ -5,14 +5,14 @@ import { FilesReducer } from '../reducers/FilesReducer';
 import { NearbyUsersReducer } from '../reducers/NearbyUserReducer';
 import { UserPreferencesReducer } from '../reducers/UserPreferencesReducer';
 
-export const ConfigureStore = () => {
-    const store = createStore({
-        combineReducers({
-            FilesReducer,
-            NearbyUsersReducer,
-            UserPreferencesReducer
-        })
-    });
+const rootReducer = combineReducers({
+    files: FilesReducer,
+    nearbyUsers: NearbyUsersReducer,
+    prefs: UserPreferencesReducer
+});
 
-    return store;
+const configureStore = () => {
+    return createStore(rootReducer);
 }
+
+export default configureStore;

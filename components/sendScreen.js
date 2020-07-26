@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 
 import {
     SafeAreaView,
@@ -7,13 +7,22 @@ import {
 } from 'react-native';
 
 import {
-    startDiscoveringPeers
-} from "react-native-wifi-p2p";
+    PEERS_UPDATED_ACTION,
+    CONNECTION_INFO_UPDATED_ACTION,
+    THIS_DEVICE_CHANGED_ACTION,
+    subscribeOnEvent
+} from 'react-native-wifi-p2p';
+
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
+
+import {
+    newUserDiscovered,
+    userLostFromRange
+} from '../actions/nearbyUsers';
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -22,8 +31,15 @@ const dynamicStyles = new DynamicStyleSheet({
     }
 })
 
-export default function SendScreen() {    
+export default function SendScreen() {
     const styles = useDynamicValue(dynamicStyles);
+
+    // Make sure that on first load and update, the component can start discovering nearby users
+    useEffect(() => {
+        subscribeOnEvent(PEERS_UPDATED_ACTION, (event) => {
+            console.log(event);
+        });
+    });
 
     return (
         <SafeAreaView style={styles.container}>

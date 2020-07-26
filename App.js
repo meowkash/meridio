@@ -42,6 +42,8 @@ import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
 import { theme } from './defaults/theme';
 
+// import configureStore from './store/configureStore';
+
 const Tab = createMaterialBottomTabNavigator();
 
 const dynamicStyle = new DynamicStyleSheet({
@@ -59,6 +61,7 @@ const App: () => React$Node = () => {
     const styles = useDynamicValue(dynamicStyle);
     const isDarkMode = useDarkMode();
 
+    // Set-up permissions for Wi-Fi Direct access
     const permission = PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     const options = {
         'title': 'Wifi networks',
@@ -75,14 +78,16 @@ const App: () => React$Node = () => {
         console.warn(error)
     })
 
+    // Initialize the API
     initialize()
         .then((isInitializedSuccessfully) => console.log('isInitializedSuccessfully: ', isInitializedSuccessfully))
         .catch((err) => console.log('initialization was failed. Err: ', err));
 
+    // Start Discovering Peers. Just once on app load
     startDiscoveringPeers()
         .then(() => console.log('Starting of discovering was successful'))
         .catch(err => console.error(`Something is gone wrong. Maybe your WiFi is disabled? Error details: ${err}`));
-        
+
     return (
         <>
             <SafeAreaView style={styles.container}>

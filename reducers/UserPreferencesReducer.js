@@ -14,5 +14,7 @@ const UserPreferencesReducer = (state = initialState, action) => {
             return (...state, visibilityLevel: action.payload);
         case ActionTypes.ACCENT_COLOR_CHANGED:
             return (...state, accentColor: action.payload);
+        default:
+            return state;
     }
 }
