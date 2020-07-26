@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -35,7 +35,7 @@ import {
 import {
     initialize,
     startDiscoveringPeers
-} from "react-native-wifi-p2p";
+} from 'react-native-wifi-p2p';
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
@@ -59,27 +59,30 @@ const App: () => React$Node = () => {
     const styles = useDynamicValue(dynamicStyle);
     const isDarkMode = useDarkMode();
 
+    const permission = PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    const options = {
+        'title': 'Wifi networks',
+        'message': 'We need your permission in order to find nearby devices on the WiFi Network'
+    }
+
+    PermissionsAndroid.request(permission, options).then((granted) => {
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log("Permission granted!");
+        } else {
+            console.log("You will not able to retrieve wifi available networks list")
+        }
+    }).catch((error) => {
+        console.warn(error)
+    })
+
     initialize()
         .then((isInitializedSuccessfully) => console.log('isInitializedSuccessfully: ', isInitializedSuccessfully))
         .catch((err) => console.log('initialization was failed. Err: ', err));
 
-    PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-        {
-            'title': 'Access to wi-fi P2P mode',
-            'message': 'ACCESS_FINE_LOCATION'
-        },
-    )
-        .then(granted => {
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("You can use the p2p mode")
-                startDiscoveringPeers()
-                    .then(() => console.log('Starting of discovering was successful'))
-                    .catch(err => console.warn({ err }));
-            } else {
-                console.log("Permission denied: p2p mode will not work")
-            }
-        })
+    startDiscoveringPeers()
+        .then(() => console.log('Starting of discovering was successful'))
+        .catch(err => console.error(`Something is gone wrong. Maybe your WiFi is disabled? Error details: ${err}`));
+        
     return (
         <>
             <SafeAreaView style={styles.container}>
