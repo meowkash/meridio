@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -6,7 +6,8 @@ import {
     View,
     Text,
     FlatList,
-    Platform
+    Platform,
+    PermissionsAndroid
 } from 'react-native';
 
 import {
@@ -24,17 +25,24 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { 
+import {
     useDarkMode,
-    DynamicStyleSheet, 
-    DynamicValue, 
-    useDynamicValue 
+    DynamicStyleSheet,
+    DynamicValue,
+    useDynamicValue
 } from 'react-native-dynamic'
+
+import {
+    initialize,
+    startDiscoveringPeers
+} from 'react-native-wifi-p2p';
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
 import { theme } from './defaults/theme';
+
+import configureStore from './store/configureStore';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -52,6 +60,34 @@ const dynamicStyle = new DynamicStyleSheet({
 const App: () => React$Node = () => {
     const styles = useDynamicValue(dynamicStyle);
     const isDarkMode = useDarkMode();
+
+    // Set-up permissions for Wi-Fi Direct access
+    const permission = PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    const options = {
+        'title': 'Wifi networks',
+        'message': 'We need your permission in order to find nearby devices on the WiFi Network'
+    }
+
+    PermissionsAndroid.request(permission, options).then((granted) => {
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            console.log("Permission granted!");
+        } else {
+            console.log("You will not able to retrieve wifi available networks list")
+        }
+    }).catch((error) => {
+        console.warn(error)
+    })
+
+    // Initialize the API
+    initialize()
+        .then((isInitializedSuccessfully) => console.log('isInitializedSuccessfully: ', isInitializedSuccessfully))
+        .catch((err) => console.log('initialization was failed. Err: ', err));
+
+    // Start Discovering Peers. Just once on app load
+    startDiscoveringPeers()
+        .then(() => console.log('Starting of discovering was successful'))
+        .catch(err => console.error(`Something is gone wrong. Maybe your WiFi is disabled? Error details: ${err}`));
+
     return (
         <>
             <SafeAreaView style={styles.container}>
@@ -61,7 +97,7 @@ const App: () => React$Node = () => {
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
-                        activeColor={isDarkMode? theme.dark.accent: theme.light.accent}
+                        activeColor={isDarkMode ? theme.dark.accent : theme.light.accent}
                         barStyle={styles.tabBar}
                     >
                         <Tab.Screen
