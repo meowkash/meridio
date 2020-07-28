@@ -2,7 +2,9 @@ import * as ActionTypes from "../actions/actionTypes";
 
 // Default initial state 
 const initialState = {
-    
+    selected: [],
+    sent: [],
+    received: []
 }
 
 const FilesReducer = (state = initialState, action) => {

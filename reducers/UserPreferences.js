@@ -1,4 +1,3 @@
-const { ActionSheetIOS } = require("react-native");
 const { act } = require("react-test-renderer");
 
 import * as ActionTypes from "../actions/actionTypes";
