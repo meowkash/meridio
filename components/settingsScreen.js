@@ -133,8 +133,7 @@ const SettingsScreen = (props) => {
                 <Text style={styles.listHeadingStyle}>Personalisation</Text>
             </View>
             <View style={styles.supportContainer}>
-                <Text style={styles.listHeadingStyle}>Support Us!</Text>
-                
+                <Text style={styles.listHeadingStyle}>Support Us!</Text>                
             </View>
         </View>
     );

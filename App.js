@@ -42,7 +42,7 @@ import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
 import { theme } from './defaults/theme';
 
-// import configureStore from './store/configureStore';
+import configureStore from './store/configureStore';
 
 const Tab = createMaterialBottomTabNavigator();
 
