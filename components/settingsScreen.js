@@ -60,6 +60,7 @@ const dynamicStyles = new DynamicStyleSheet({
         marginTop: "3%",
         marginBottom: "3%",
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
+        //backgroundColor: "white",
         marginHorizontal: 12,
         borderRadius: 10,
         paddingBottom: 4,
@@ -93,11 +94,29 @@ const dynamicStyles = new DynamicStyleSheet({
         backgroundColor: new DynamicValue(theme.light.accent, theme.dark.accent),
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 2.5,
+        borderBottomRightRadius: 2.5,
         lineHeight: 30,
         fontSize: 16,
         alignItems: 'center',
         paddingTop: 2,
         color: new DynamicValue(theme.light.primary, theme.dark.primary)
+    },
+    listStyle: {
+        textAlign: 'left',
+        //backgroundColor: new DynamicValue(theme.light.primary, theme.light.secondary),
+
+    },
+    item: {
+        flex: 1,
+        textAlign: 'left',
+        alignItems: 'center',
+        fontSize: 15,
+        paddingTop: 25,
+        paddingLeft: 30,
+        //marginRight: 20,
+        //paddingRight: 2,
+        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     }
 });
 
@@ -131,9 +150,18 @@ const SettingsScreen = (props) => {
             </View>
             <View style={styles.settingsContainer}>
                 <Text style={styles.listHeadingStyle}>Personalisation</Text>
+                    <Text style={styles.item}>
+                        Option 1
+                    </Text>
+                    <Text style={styles.item}>
+                        Option 2
+                    </Text>
+                    <Text style={styles.item}>
+                        Option 3
+                    </Text>
             </View>
             <View style={styles.supportContainer}>
-                <Text style={styles.listHeadingStyle}>Support Us!</Text>                
+                <Text style={styles.listHeadingStyle}>Support Us!</Text>
             </View>
         </View>
     );

@@ -18,6 +18,8 @@ import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
+//import CompletedShare from './completedShare';
+//import OngoingShare from './ongoingShare';
 
 import {
     newUserDiscovered,
@@ -57,6 +59,7 @@ export default function SendScreen() {
                 isHorizontal={false}
                 listTitle="Files"
                 listElementType="FileItem"
+                //listElementType="CompletedShare"
                 flex={12}
             />
         </SafeAreaView>

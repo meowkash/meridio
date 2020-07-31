@@ -27,23 +27,29 @@ const dynamicStyles = new DynamicStyleSheet({
         paddingLeft: 10,
         borderBottomColor: '#A7A7A7'
     },
-    progress: {
+    /*progress: {
         alignItems: 'flex-start',
-        flex: 5,
+        flex: 1,
         marginHorizontal: 10,
         paddingLeft: 2,
         paddingRight: 2,
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
-    },
+        //color: 'white'
+    },*/
     items: {
-        flex: 1.2,
-        textAlign: 'right',
-        marginRight: 10,
-        paddingRight: 2,
+        alignItems: 'flex-start',
+        flex: 5,
+        textAlign: 'left',
+        marginLeft: 10,
+        paddingLeft: 2,
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
-    icon: {
-
+    total: {
+        flex: 5,
+        textAlign: 'right',
+        marginRight: 20,
+        paddingRight: 2,
+        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     }
 })
 
@@ -60,9 +66,12 @@ const OngoingShare = (props) => {
     return (
         <TouchableOpacity>
             <View style={styles.container}>
-                <Image source={Images.file[fileType]} style={styles.icon} />
-                <ProgressBar style={styles.progress} progress={completedPercentage} />
+                <Image source={Images.file[userName]} style={styles.icon} />
                 <Text style={styles.items}>
+                    {userName}
+                </Text>
+                <ProgressBar style={styles.progress} progress={completedPercentage} />
+                <Text style={styles.total}>
                     {itemsDone}/{itemsTotal}
                 </Text>
             </View>
@@ -71,8 +80,10 @@ const OngoingShare = (props) => {
 }
 
 OngoingShare.defaultProps = {
-    avatarIcon: 'user_male',
-    userName: "AwesomeUser",
+    userName: 'Dhruv',
+    completedPercentage: 27,
+    itemsDone: 89,
+    itemsTotal: 100,
 };
 
 export default OngoingShare;

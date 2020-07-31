@@ -58,8 +58,8 @@ const dynamicStyles = new DynamicStyleSheet({
         color: new DynamicValue(theme.light.primary, theme.dark.primary),
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
-        borderBottomRightRadius: 2,
-        borderBottomLeftRadius: 2,
+        borderBottomRightRadius: 2.5,
+        borderBottomLeftRadius: 2.5,
         paddingLeft: 12,
         marginTop: '1%',
         paddingBottom: 4,
@@ -85,11 +85,13 @@ const emptyListDynamic = new DynamicStyleSheet({
     },
     text: {
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary),
+        //color: 'white',
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "center",
         flex: 1,
         backgroundColor: 'white'
+        //backgroundColor: 'black'
     }
 });
 
@@ -132,9 +134,13 @@ const ListItem = (props) => {
         case 'OngoingShare':
             return (
                 <OngoingShare
-                    id={item.id}
+                    /*id={item.id}
                     avatarIcon={item.icon}
-                    userName={item.name}
+                    userName={item.name}*/
+                    userName={item.type}
+                    completedPercentage={item.percent}
+                    itemsDone={item.done}
+                    itemsTotal={item.total}
                 />
             );
         case 'CompletedShare':

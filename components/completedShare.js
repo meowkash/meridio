@@ -18,7 +18,7 @@ const dynamicStyles = new DynamicStyleSheet({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 0.2,
         paddingBottom: 4,
         paddingTop: 4,
         paddingRight: 0,
@@ -35,13 +35,13 @@ const dynamicStyles = new DynamicStyleSheet({
     },
     size: {
         flex: 1.2,
-        textAlign: 'right',
-        marginRight: 10,
+        textAlign: 'center',
+        marginRight: 20,
         paddingRight: 2,
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
     icon: {
-        flex: 1,
+        flex: 0.2,
         height: 40,
         resizeMode: 'contain',
     }
@@ -72,8 +72,11 @@ const CompletedShare = (props) => {
 }
 
 CompletedShare.defaultProps = {
-    avatarIcon: 'user_male',
-    userName: "AwesomeUser",
+    //avatarIcon: 'user_male',
+    fileType: 'user_male',
+    //userName: "AwesomeUser",
+    fileName: 'Awesome',
+    fileSize: '2 MB'
 };
 
 export default CompletedShare;
