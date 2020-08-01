@@ -10,10 +10,13 @@ import {
     Button
 } from "react-native";
 import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
+import { FlatList } from "react-native-gesture-handler";
+import { connect, useDispatch } from "react-redux";
+
 import { theme } from "../defaults/theme";
 import { accentColors } from '../defaults/accents';
 import Images from '../assets/assetIndex';
-import { FlatList } from "react-native-gesture-handler";
+import { changeAccentColor, changeVisibility } from '../actions/updatePreferences';
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -138,15 +141,26 @@ const dynamicStyles = new DynamicStyleSheet({
     }
 });
 
+const ButtonStyles = new DynamicStyleSheet({
+    textStyle: {
+        fontSize: 12,
+        color: new DynamicValue(theme.light.primary, theme.dark.primary)
+    }
+});
+
 const AccentColorButton = (props) => {
     const {
         colorValue,
         name
     } = props;
 
+    const butStyle = useDynamicValue(ButtonStyles);
+    const dispatch = useDispatch();
+    const changeAccent = (name) => dispatch(changeAccentColor(name));
+
     return (
         <View style={{ marginHorizontal: 12, alignItems: 'center' }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => changeAccent(name)}>
                 <Image
                     backgroundColor={colorValue}
                     width={25}
@@ -156,7 +170,7 @@ const AccentColorButton = (props) => {
                     marginBottom={10}
                 />
             </TouchableOpacity>
-            <Text style={{ fontSize: 12 }}>
+            <Text style={butStyle.textStyle}>
                 {name}
             </Text>
         </View>
@@ -210,7 +224,7 @@ const SettingsScreen = (props) => {
                             renderItem={({ item, index, separators }) => (
                                 <AccentColorButton
                                     name={item.name}
-                                    colorValue={isDarkMode ? item.lightHex : item.darkHex}
+                                    colorValue={!isDarkMode ? item.lightHex : item.darkHex}
                                 />
                             )}
                             keyExtractor={(item, index) => item.name}

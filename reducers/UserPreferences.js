@@ -2,10 +2,16 @@ const { act } = require("react-test-renderer");
 
 import * as ActionTypes from "../actions/actionTypes";
 
+import { accentColors } from "../defaults/accents";
+import { acc } from "react-native-reanimated";
+
 // Default initial state for UserPreferences
 const initialState = {
     visibilityLevel: ActionTypes.visibilityLevels.EVERYONE,
-    accentColor: ActionTypes.accentColors.GREEN
+    accentColor: {
+        light: ActionTypes.accentColors.GREEN,
+        dark: ActionTypes.accentColors.GREEN
+    }
 }
 
 export const UserPreferences = (state = initialState, action) => {
@@ -16,9 +22,18 @@ export const UserPreferences = (state = initialState, action) => {
                 accentColor: state.accentColor
             };
         case ActionTypes.ACCENT_COLOR_CHANGED:
+            var newColorScheme = {};
+            for (var i=0; i<accentColors.length; i++) {
+                if(accentColors[i].name===action.payload) {
+                    newColorScheme = {
+                        light: accentColors[i].lightHex,
+                        dark: accentColors[i].darkHex
+                    }
+                }
+            }
             return {
                 visibilityLevel: state.visibilityLevel,
-                accentColor: action.payload
+                accentColor: newColorScheme
             }
         default:
             return state;

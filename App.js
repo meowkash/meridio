@@ -37,12 +37,18 @@ import {
     startDiscoveringPeers
 } from 'react-native-wifi-p2p';
 
+import {
+    connect
+} from 'react-redux';
+
+import {
+    bindActionCreators
+} from 'redux';
+
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
 import { theme } from './defaults/theme';
-
-import configureStore from './store/configureStore';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -143,4 +149,9 @@ const App: () => React$Node = () => {
     );
 };
 
+const mapDispatchToProps = (state) => {
+    return {
+        
+    }
+}
 export default App;

@@ -11,6 +11,8 @@ import {
     FlatList
 } from 'react-native';
 
+import { connect } from "react-redux";
+
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';

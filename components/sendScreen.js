@@ -13,6 +13,7 @@ import {
     subscribeOnEvent
 } from 'react-native-wifi-p2p';
 
+import { connect } from "react-redux";
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';

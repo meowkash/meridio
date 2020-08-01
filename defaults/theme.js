@@ -6,14 +6,6 @@ export const theme = {
         secondary: '#242424',
         tertiary: '#535353',
         accent: '#519657',
-        accentOptions: {
-            green: '#519657',
-            blue: '#64b5f6',
-            pink: '#f06292',
-            orange: '#f57c00',
-            purple: '#b39ddb',
-            red: '#f44336'
-        },
         background: '#FFFFFF',
         secondaryBackground: '#FDFDFD',
         tertiaryBackground: '#FAFAFA',
@@ -23,14 +15,6 @@ export const theme = {
         secondary: '#EBEBF5',
         tertiary: '#B3B3B3',
         accent: '#01579b',
-        accentOptions: {
-            green: '#20672d',
-            blue: '#01579b',
-            pink: '#c51162',
-            orange: '#bf360c',
-            purple: '#673ab7',
-            red: '#d50000'
-        },
         background: '#121212',
         secondaryBackground: '#242424',
         tertiaryBackground: '#2C2C2C',
