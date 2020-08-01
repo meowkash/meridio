@@ -63,7 +63,7 @@ const dynamicStyle = new DynamicStyleSheet({
     }
 })
 
-const App: () => React$Node = () => {
+const App: () => React$Node = (props) => {
     const styles = useDynamicValue(dynamicStyle);
     const isDarkMode = useDarkMode();
 
@@ -103,7 +103,8 @@ const App: () => React$Node = () => {
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
-                        activeColor={isDarkMode ? theme.dark.accent : theme.light.accent}
+                        // activeColor={isDarkMode ? theme.dark.accent : theme.light.accent}
+                        activeColor={isDarkMode ? props.accentColor.dark : props.accentColor.light}
                         barStyle={styles.tabBar}
                     >
                         <Tab.Screen
@@ -149,9 +150,10 @@ const App: () => React$Node = () => {
     );
 };
 
-const mapDispatchToProps = (state) => {
+const mapStateToProps = (state) => {
     return {
-        
+        accentColor: state.prefs.accentColor
     }
 }
-export default App;
+
+export default connect(mapStateToProps)(App);

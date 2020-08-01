@@ -9,6 +9,7 @@ import {
     TextInput,
     Button
 } from "react-native";
+
 import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import { FlatList } from "react-native-gesture-handler";
 import { connect, useDispatch } from "react-redux";
@@ -96,7 +97,6 @@ const dynamicStyles = new DynamicStyleSheet({
     },
     listHeadingStyle: {
         textAlign: 'center',
-        backgroundColor: new DynamicValue(theme.light.accent, theme.dark.accent),
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 2.5,
@@ -112,14 +112,12 @@ const dynamicStyles = new DynamicStyleSheet({
         textAlign: 'left',
         fontSize: 16,
         paddingHorizontal: 10,
-        color: new DynamicValue(theme.light.accent, theme.dark.accent),
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
     },
     itemInfo: {
         fontSize: 12,
-        borderBottomColor: new DynamicValue(theme.light.accent, theme.dark.accent),
         borderBottomWidth: 1,
         flex: 1,
         paddingHorizontal: 10,
@@ -187,6 +185,7 @@ const SettingsScreen = (props) => {
         userNameTextStyle,
         searchBarStyle,
         searchInputStyle,
+        accentColor
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
@@ -208,13 +207,13 @@ const SettingsScreen = (props) => {
                 <Text style={styles.userNameTextStyle}>{userName}</Text>
             </View>
             <View style={styles.settingsContainer}>
-                <Text style={styles.listHeadingStyle}>Personalisation</Text>
+                <Text style={[styles.listHeadingStyle, {backgroundColor: isDarkMode? accentColor.dark : accentColor.light}]}>Personalisation</Text>
 
                 <View style={styles.itemContent}>
-                    <Text style={styles.itemHead}>
+                    <Text style={[styles.itemHead, {color: isDarkMode? accentColor.dark : accentColor.light}]}>
                         Accent Color
                     </Text>
-                    <Text style={styles.itemInfo}>
+                    <Text style={[styles.itemInfo, {borderBottomColor: isDarkMode? accentColor.dark : accentColor.light}]}>
                         Change the color used throughout the app
                     </Text>
                     <View style={styles.itemOptions}>
@@ -233,10 +232,10 @@ const SettingsScreen = (props) => {
                 </View>
 
                 <View style={styles.itemContent}>
-                    <Text style={styles.itemHead}>
+                    <Text style={[styles.itemHead, {color: isDarkMode? accentColor.dark : accentColor.light}]}>
                         Visibility
                     </Text>
-                    <Text style={styles.itemInfo}>
+                    <Text style={[styles.itemInfo, {borderBottomColor: isDarkMode? accentColor.dark : accentColor.light}]}>
                         Modify who you are visible to
                     </Text>
                     <View style={styles.itemOptions}>
@@ -245,7 +244,7 @@ const SettingsScreen = (props) => {
                 </View>
             </View>
             <View style={styles.supportContainer}>
-                <Text style={styles.listHeadingStyle}>Support Us!</Text>
+                <Text style={[styles.listHeadingStyle, {backgroundColor: isDarkMode? accentColor.dark : accentColor.light}]}>Support Us!</Text>
             </View>
         </View>
     );
@@ -260,4 +259,10 @@ SettingsScreen.defaultProps = {
     profileImageSource: "caveman"
 };
 
-export default SettingsScreen;
+const mapStateToProps = (state) => {
+    return {
+        accentColor: state.prefs.accentColor
+    }
+}
+
+export default connect(mapStateToProps)(SettingsScreen);

@@ -13,6 +13,10 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import {
+    connect
+} from 'react-redux';
+
 import UserAvatar from './userItem';
 import FileItem from './fileItem';
 import OngoingShare from './ongoingShare';
@@ -29,6 +33,7 @@ const container = (viewFlex) => {
         marginBottom: "2%",
     };
 }
+
 const dynamicStyles = new DynamicStyleSheet({
     container: {
         backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
@@ -51,7 +56,6 @@ const dynamicStyles = new DynamicStyleSheet({
         elevation: 10,
     },
     heading: {
-        backgroundColor: new DynamicValue(theme.light.accent, theme.dark.accent),
         fontSize: 16,
         marginHorizontal: 12,
         color: new DynamicValue(theme.light.primary, theme.dark.primary),
@@ -165,13 +169,17 @@ const FloatingList = (props) => {
         listElementType,
         emptyMessage,
         flex,
+        accentColor
     } = props;
 
+    console.log(props);
     const styles = useDynamicValue(dynamicStyles);
+
+    const isDarkMode = useDarkMode();
 
     return (
         <View style={[container(flex), styles.container]}>
-            <Text style={styles.heading}>
+            <Text style={[styles.heading, {backgroundColor: isDarkMode? accentColor.dark: accentColor.light}]}>
                 {listTitle}
                 <Ionicons name="chevron-forward"> </Ionicons>
             </Text>
@@ -206,4 +214,10 @@ FloatingList.defaultProps = {
     height: 100,
 };
 
-export default FloatingList;
+const mapStateToProps = (state) => {
+    return {
+        accentColor: state.prefs.accentColor
+    }
+}
+
+export default connect(mapStateToProps)(FloatingList);
