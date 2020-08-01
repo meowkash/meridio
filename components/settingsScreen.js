@@ -5,12 +5,15 @@ import {
     View,
     Image,
     TouchableOpacity,
+    Pressable,
     TextInput,
     Button
 } from "react-native";
-import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import { theme } from "../defaults/theme";
+import { accentColors } from '../defaults/accents';
 import Images from '../assets/assetIndex';
+import { FlatList } from "react-native-gesture-handler";
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -19,7 +22,7 @@ const dynamicStyles = new DynamicStyleSheet({
     },
     topBar: {
         marginTop: "3%",
-        flex: 1,
+        flex: 2,
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         marginHorizontal: 12,
         borderRadius: 10,
@@ -56,11 +59,10 @@ const dynamicStyles = new DynamicStyleSheet({
         paddingBottom: 4,
     },
     settingsContainer: {
-        flex: 3,
+        flex: 5,
         marginTop: "3%",
         marginBottom: "3%",
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
-        //backgroundColor: "white",
         marginHorizontal: 12,
         borderRadius: 10,
         paddingBottom: 4,
@@ -74,7 +76,7 @@ const dynamicStyles = new DynamicStyleSheet({
         elevation: 10,
     },
     supportContainer: {
-        flex: 1,
+        flex: 2.4,
         marginBottom: "3%",
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
         marginHorizontal: 12,
@@ -102,24 +104,64 @@ const dynamicStyles = new DynamicStyleSheet({
         paddingTop: 2,
         color: new DynamicValue(theme.light.primary, theme.dark.primary)
     },
-    listStyle: {
-        textAlign: 'left',
-        //backgroundColor: new DynamicValue(theme.light.primary, theme.light.secondary),
-
-    },
-    item: {
+    itemHead: {
         flex: 1,
         textAlign: 'left',
-        alignItems: 'center',
-        fontSize: 15,
-        paddingTop: 25,
-        paddingLeft: 30,
-        //marginRight: 20,
-        //paddingRight: 2,
-        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
+        fontSize: 16,
+        paddingHorizontal: 10,
+        color: new DynamicValue(theme.light.accent, theme.dark.accent),
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10
+    },
+    itemInfo: {
+        fontSize: 12,
+        borderBottomColor: new DynamicValue(theme.light.accent, theme.dark.accent),
+        borderBottomWidth: 1,
+        flex: 1,
+        paddingHorizontal: 10,
+        color: new DynamicValue(theme.light.tertiary, theme.dark.tertiary),
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
+    },
+    itemOptions: {
+        flex: 3.5,
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        alignItems: "center",
+    },
+    itemContent: {
+        flex: 1,
+        marginHorizontal: 10,
+        marginVertical: 10,
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground)
     }
 });
 
+const AccentColorButton = (props) => {
+    const {
+        colorValue,
+        name
+    } = props;
+
+    return (
+        <View style={{ marginHorizontal: 12, alignItems: 'center' }}>
+            <TouchableOpacity>
+                <Image
+                    backgroundColor={colorValue}
+                    width={25}
+                    height={25}
+                    borderRadius={15}
+                    marginTop={20}
+                    marginBottom={10}
+                />
+            </TouchableOpacity>
+            <Text style={{ fontSize: 12 }}>
+                {name}
+            </Text>
+        </View>
+    );
+}
 const SettingsScreen = (props) => {
     const {
         profileImageStyle,
@@ -132,7 +174,10 @@ const SettingsScreen = (props) => {
         searchBarStyle,
         searchInputStyle,
     } = props;
+
     const styles = useDynamicValue(dynamicStyles);
+
+    const isDarkMode = useDarkMode();
 
     return (
         < View style={styles.container}>
@@ -150,15 +195,40 @@ const SettingsScreen = (props) => {
             </View>
             <View style={styles.settingsContainer}>
                 <Text style={styles.listHeadingStyle}>Personalisation</Text>
-                    <Text style={styles.item}>
-                        Option 1
+
+                <View style={styles.itemContent}>
+                    <Text style={styles.itemHead}>
+                        Accent Color
                     </Text>
-                    <Text style={styles.item}>
-                        Option 2
+                    <Text style={styles.itemInfo}>
+                        Change the color used throughout the app
                     </Text>
-                    <Text style={styles.item}>
-                        Option 3
+                    <View style={styles.itemOptions}>
+                        <FlatList
+                            horizontal={true}
+                            data={accentColors}
+                            renderItem={({ item, index, separators }) => (
+                                <AccentColorButton
+                                    name={item.name}
+                                    colorValue={isDarkMode ? item.lightHex : item.darkHex}
+                                />
+                            )}
+                            keyExtractor={(item, index) => item.name}
+                        />
+                    </View>
+                </View>
+
+                <View style={styles.itemContent}>
+                    <Text style={styles.itemHead}>
+                        Visibility
                     </Text>
+                    <Text style={styles.itemInfo}>
+                        Modify who you are visible to
+                    </Text>
+                    <View style={styles.itemOptions}>
+
+                    </View>
+                </View>
             </View>
             <View style={styles.supportContainer}>
                 <Text style={styles.listHeadingStyle}>Support Us!</Text>

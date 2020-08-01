@@ -4,6 +4,7 @@ export const theme = {
     light: {
         primary: '#000000',
         secondary: '#242424',
+        tertiary: '#535353',
         accent: '#519657',
         accentOptions: {
             green: '#519657',
@@ -20,6 +21,7 @@ export const theme = {
     dark: {
         primary: '#F3F3F3',
         secondary: '#EBEBF5',
+        tertiary: '#B3B3B3',
         accent: '#01579b',
         accentOptions: {
             green: '#20672d',

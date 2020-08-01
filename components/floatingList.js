@@ -27,7 +27,6 @@ const container = (viewFlex) => {
         flex: viewFlex,
         textAlign: "center",
         marginBottom: "2%",
-
     };
 }
 const dynamicStyles = new DynamicStyleSheet({
@@ -35,7 +34,7 @@ const dynamicStyles = new DynamicStyleSheet({
         backgroundColor: new DynamicValue(theme.light.background, theme.dark.background)
     },
     listStyle: {
-        marginHorizontal: 8,
+        marginHorizontal: 12,
         backgroundColor: new DynamicValue(theme.light.tertiaryBackground, theme.dark.tertiaryBackground),
         borderBottomRightRadius: 10,
         borderBottomLeftRadius: 10,
@@ -54,7 +53,7 @@ const dynamicStyles = new DynamicStyleSheet({
     heading: {
         backgroundColor: new DynamicValue(theme.light.accent, theme.dark.accent),
         fontSize: 16,
-        marginHorizontal: 8,
+        marginHorizontal: 12,
         color: new DynamicValue(theme.light.primary, theme.dark.primary),
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,

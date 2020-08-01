@@ -17,7 +17,7 @@ const dynamicStyle = new DynamicStyleSheet({
         paddingTop: 8,
         paddingBottom: 8,
         paddingLeft: 16,
-        marginHorizontal: 8,
+        marginHorizontal: 12,
         marginTop: '3%',
         marginBottom: '2%',
         borderRadius: 10,

@@ -18,8 +18,6 @@ import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
-//import CompletedShare from './completedShare';
-//import OngoingShare from './ongoingShare';
 
 import {
     newUserDiscovered,
