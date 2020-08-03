@@ -34,7 +34,7 @@ const dynamicStyles = new DynamicStyleSheet({
 
 export default function SendScreen(props) {
     const styles = useDynamicValue(dynamicStyles);
-    console.log(props);
+
     // Make sure that on first load and update, the component can start discovering nearby users
     useEffect(() => {
         subscribeOnEvent(PEERS_UPDATED_ACTION, (event) => {
@@ -58,7 +58,6 @@ export default function SendScreen(props) {
                 isHorizontal={false}
                 listTitle="Files"
                 listElementType="FileItem"
-                //listElementType="CompletedShare"
                 flex={12}
             />
         </SafeAreaView>

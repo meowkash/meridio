@@ -103,7 +103,6 @@ const App: () => React$Node = (props) => {
                 <NavigationContainer>
                     <Tab.Navigator
                         initialRouteName="Send"
-                        // activeColor={isDarkMode ? theme.dark.accent : theme.light.accent}
                         activeColor={isDarkMode ? props.accentColor.dark : props.accentColor.light}
                         barStyle={styles.tabBar}
                     >

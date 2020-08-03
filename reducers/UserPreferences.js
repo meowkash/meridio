@@ -24,8 +24,8 @@ export const UserPreferences = (state = initialState, action) => {
             };
         case ActionTypes.ACCENT_COLOR_CHANGED:
             var newColorScheme = {};
-            for (var i=0; i<accentColors.length; i++) {
-                if(accentColors[i].name===action.payload) {
+            for (var i = 0; i < accentColors.length; i++) {
+                if (accentColors[i].name === action.payload) {
                     newColorScheme = {
                         light: accentColors[i].lightHex,
                         dark: accentColors[i].darkHex

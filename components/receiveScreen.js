@@ -92,23 +92,10 @@ export default function ReceiveScreen() {
             />
             <FloatingList
                 dataSrc={DATA}
-                //listTitle="Incoming"
-                listTitle="Receiving"
-                //listElementType="FileItem"
-                listElementType="OngoingShare"
-                emptyMessage="No files received so far"
-                flex={7}
-            />
-            <FloatingList
-                dataSrc={DATA}
-                //isHorizontal={true}
-                //listTitle="Incoming"
-                listTitle="Receiving"
-                //listElementType="FileItem"
-                //listElementType="OngoingShare"
+                isHorizontal={false}
+                listTitle="Completed Shares"
                 listElementType="CompletedShare"
-                emptyMessage="No files received so far"
-                flex={7}
+                flex={12}
             />
         </SafeAreaView>
     );

@@ -8,7 +8,8 @@ import {
     Platform,
     SafeAreaView,
     ScrollView,
-    FlatList
+    FlatList,
+    Button
 } from "react-native";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,13 +18,20 @@ import {
     connect
 } from 'react-redux';
 
+import {
+    useDarkMode,
+    DynamicStyleSheet,
+    DynamicValue,
+    useDynamicValue
+} from 'react-native-dynamic';
+
 import UserAvatar from './userItem';
 import FileItem from './fileItem';
 import OngoingShare from './ongoingShare';
 import CompletedShare from './completedShare';
-
 import { theme } from '../defaults/theme';
-import { useDarkMode, DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+import { addFiles } from './pickFiles';
+import { color } from "react-native-reanimated";
 
 // Stylesheets
 const container = (viewFlex) => {
@@ -80,33 +88,76 @@ const dynamicStyles = new DynamicStyleSheet({
 })
 
 const emptyListDynamic = new DynamicStyleSheet({
-    container: {
-        textAlign: "center",
-        alignSelf: "center",
-        textAlignVertical: "center",
-        flex: 1
+    textContainer: {
+        alignContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+        flex: 1,
+        width: 300,
+        paddingHorizontal: 40,
+        justifyContent: 'center',
+        textAlignVertical: 'center',
+        textAlign: 'center',
     },
     text: {
-        color: new DynamicValue(theme.light.secondary, theme.dark.secondary),
-        //color: 'white',
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
+        color: new DynamicValue(theme.light.tertiary, theme.dark.tertiary),
+        textAlignVertical: "center",
+        alignSelf: "stretch",
         flex: 1,
-        backgroundColor: 'white'
-        //backgroundColor: 'black'
+        flexGrow: 1,
+        flexWrap: 'wrap',
+        textAlign: "center",    
+        backgroundColor: new DynamicValue(theme.light.tertiaryBackground, theme.dark.tertiaryBackground)
+    },
+    buttonContainer: {
+        justifyContent: 'center',
+        flex: 1,
+        flexGrow: 1,
+        textAlignVertical: 'center',
+        flexDirection: 'column',
+    },
+    button: {
+        marginBottom: "20%",
+        alignItems: 'center',
+        width: 100,
+        height: 50,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderRadius: 50
     }
 });
 
 // Default view for when there is nothing in the list
-const ListEmptyView = (emptyMessage) => {
-    const emptyListStyles = useDynamicValue(emptyListDynamic);
-    return (
-        <View style={emptyListStyles.container}>
-            <Text style={emptyListStyles.text}> {emptyMessage} </Text>
-        </View>
+const ListEmptyView = (props) => {
+    const {
+        listComponentType,
+        accent
+    } = props;
 
-    );
+    const emptyListStyles = useDynamicValue(emptyListDynamic);
+
+    const isDarkMode = useDarkMode();
+
+    switch (listComponentType) {
+        case "UserAvatar":
+            return (
+                <View style={emptyListStyles.textContainer}>
+                    <Text style={emptyListStyles.text}>No users found nearby{"\n"}{"\n"}Nearby devices who have the Meridio app open will be shown here</Text>
+                </View>
+            )
+        case "FileItem":
+            return (
+                <View style={emptyListStyles.buttonContainer}>
+                    <Text style={emptyListStyles.text}>You have not selected any files for sharing{"\n"}{"\n"}{"\n"}Click on the button below to add files for sending</Text>
+                    <TouchableOpacity onPress={addFiles} style={[emptyListStyles.button, { backgroundColor: isDarkMode ? accent.dark : accent.light }]}>
+                        <Text style={{ color: isDarkMode ? theme.dark.secondary : theme.light.secondary }}> Add Files </Text>
+                    </TouchableOpacity>
+                </View>
+            );
+        case "OngoingShare":
+
+        case "CompletedShare":
+    }
 }
 
 // Intelligently select the type of item in the list to be rendered
@@ -137,9 +188,7 @@ const ListItem = (props) => {
         case 'OngoingShare':
             return (
                 <OngoingShare
-                    /*id={item.id}
-                    avatarIcon={item.icon}
-                    userName={item.name}*/
+                    id={item.id}
                     userName={item.type}
                     completedPercentage={item.percent}
                     itemsDone={item.done}
@@ -172,20 +221,20 @@ const FloatingList = (props) => {
         accentColor
     } = props;
 
-    console.log(props);
     const styles = useDynamicValue(dynamicStyles);
 
     const isDarkMode = useDarkMode();
 
     return (
         <View style={[container(flex), styles.container]}>
-            <Text style={[styles.heading, {backgroundColor: isDarkMode? accentColor.dark: accentColor.light}]}>
+            <Text style={[styles.heading, { backgroundColor: isDarkMode ? accentColor.dark : accentColor.light }]}>
                 {listTitle}
                 <Ionicons name="chevron-forward"> </Ionicons>
             </Text>
             <FlatList
                 horizontal={isHorizontal}
                 style={styles.listStyle}
+                contentContainerStyle={{flexGrow: 1}}
                 data={dataSrc}
                 renderItem={({ item, index, separators }) => (
                     <ListItem
@@ -193,7 +242,12 @@ const FloatingList = (props) => {
                         listComponentType={listElementType}
                     />
                 )}
-                ListEmptyComponent={ListEmptyView(emptyMessage)}
+                ListEmptyComponent={
+                    <ListEmptyView
+                        listComponentType={listElementType}
+                        accent={accentColor}
+                    />
+                }
                 keyExtractor={item => item.id}
             />
         </View>
