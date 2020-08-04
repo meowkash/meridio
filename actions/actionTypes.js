@@ -1,6 +1,7 @@
 // User Preferences
 export const VISIBILITY_CHANGED = 'VISIBILITY_CHANGED';
 export const ACCENT_COLOR_CHANGED = 'ACCENT_COLOR_CHANGED';
+export const USER_INFO_CHANGED = 'USER_INFO_CHANGED';
 
 // Nearby Users 
 // export const USER_DISCOVERED = 'USER_DISCOVERED';

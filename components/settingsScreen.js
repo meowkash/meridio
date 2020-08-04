@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
     Text,
@@ -10,14 +10,20 @@ import {
     Button
 } from "react-native";
 
+import Overlay from 'react-native-modal-overlay';
 import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import { FlatList } from "react-native-gesture-handler";
 import { connect, useDispatch } from "react-redux";
+import Icon from 'react-native-vector-icons/Entypo';
 
 import { theme } from "../defaults/theme";
 import { accentColors } from '../defaults/accents';
 import Images from '../assets/assetIndex';
-import { changeAccentColor, changeVisibility } from '../actions/updatePreferences';
+import {
+    changeAccentColor,
+    changeVisibility,
+    changeUserInfo
+} from '../actions/updatePreferences';
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -52,15 +58,31 @@ const dynamicStyles = new DynamicStyleSheet({
         alignContent: "center",
         alignSelf: "center",
     },
-    userNameTextStyle: {
-        fontSize: 22,
+    userNameContainer: {
         flex: 1,
         color: new DynamicValue(theme.light.primary, theme.dark.primary),
-        fontWeight: "bold",
-        alignContent: "center",
+        backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground),
+        alignContent: 'center',
         alignSelf: "center",
         paddingTop: 8,
         paddingBottom: 4,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    userNameText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        // marginRight: 8,
+        flex: 14,
+        textAlign: 'center'
+    },
+    userNameEdit: {
+        marginLeft: "-10%",
+        marginRight: "3.33%",
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        // color: new DynamicValue(theme.light.label, theme.dark.label),
     },
     settingsContainer: {
         flex: 5,
@@ -136,6 +158,16 @@ const dynamicStyles = new DynamicStyleSheet({
         marginHorizontal: 10,
         marginVertical: 10,
         backgroundColor: new DynamicValue(theme.light.secondaryBackground, theme.dark.secondaryBackground)
+    },
+    submitButton: {
+        borderRadius: 50,
+        width: 150,
+        height: 50,
+        marginTop: "5%",
+        marginBottom: "5%",
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        color: new DynamicValue(theme.light.label, theme.dark.label)
     }
 });
 
@@ -174,46 +206,92 @@ const AccentColorButton = (props) => {
         </View>
     );
 }
+
 const SettingsScreen = (props) => {
     const {
         profileImageStyle,
         profileImageSource,
         profileImageOnPress,
-        userName,
-        subuserName,
         searchIcon,
         userNameTextStyle,
         searchBarStyle,
         searchInputStyle,
-        accentColor
+        accentColor,
+        userName,
+        userProfileIcon
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
+
+    const [overlayVisibility, setOverlayVisibility] = useState(false);
 
     const isDarkMode = useDarkMode();
 
     return (
         < View style={styles.container}>
+            <Overlay visible={overlayVisibility} animationType="zoomIn"
+                containerStyle={{ backgroundColor: 'rgba(37, 8, 10, 0.78)' }} childrenWrapperStyle={{ backgroundColor: isDarkMode ? theme.dark.tertiaryBackground : theme.light.tertiaryBackground, borderRadius: 10, flex: 0.5 }}>
+                <View style={{flex: 2}}>
+                    <Text style={{ fontWeight: '300', fontSize: 20, color: isDarkMode ? theme.dark.secondary : theme.light.secondary }}>Edit Info</Text>
+                    <View style={{ borderBottomWidth: 1, width: 100, paddingTop: 10, borderColor: isDarkMode ? accentColor.dark : accentColor.light }}></View>
+                </View>
+                <View style={{ flex: 3, flexDirection: 'row' }}>
+                    <Text>
+                        Name:
+                    </Text>
+                    <TextInput>
+                        {userName}
+                    </TextInput>
+                </View>
+                <View style={{ flex: 3, flexDirection: 'row' }}>
+                    <Text>
+                        Profile Picture:
+                    </Text>
+                    <Image
+                        source={Images.user[userProfileIcon]}
+                        style={profileImageStyle || styles.profileImageStyle}
+                    />
+                </View>
+                <TouchableOpacity
+                    borderRadius={50}
+                    onPress={() => {
+                        setOverlayVisibility(false);
+                    }}
+                    flex={1}
+                >
+                    <Text style={[styles.submitButton, { backgroundColor: isDarkMode ? accentColor.dark : accentColor.light }]}> Save Changes </Text>
+                </TouchableOpacity>
+            </Overlay>
+
             <View style={styles.topBar}>
                 <TouchableOpacity
                     style={styles.topContainer}
                     onPress={profileImageOnPress}
                 >
                     <Image
-                        source={Images.user[profileImageSource]}
+                        source={Images.user[userProfileIcon]}
                         style={profileImageStyle || styles.profileImageStyle}
                     />
                 </TouchableOpacity>
-                <Text style={styles.userNameTextStyle}>{userName}</Text>
+                <View style={styles.userNameContainer}>
+                    <Text style={styles.userNameText}>{userName}</Text>
+                    <TouchableOpacity style={styles.userNameEdit} onPress={() => {
+                        if (overlayVisibility === false)
+                            setOverlayVisibility(true);
+                        console.log(overlayVisibility);
+                    }}>
+                        <Icon name="edit" color={isDarkMode ? accentColor.dark : accentColor.light} size={20}> </Icon>
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={styles.settingsContainer}>
-                <Text style={[styles.listHeadingStyle, {backgroundColor: isDarkMode? accentColor.dark : accentColor.light}]}>Personalisation</Text>
+                <Text style={[styles.listHeadingStyle, { backgroundColor: isDarkMode ? accentColor.dark : accentColor.light }]}>Personalisation</Text>
 
                 <View style={styles.itemContent}>
-                    <Text style={[styles.itemHead, {color: isDarkMode? accentColor.dark : accentColor.light}]}>
+                    <Text style={[styles.itemHead, { color: isDarkMode ? accentColor.dark : accentColor.light }]}>
                         Accent Color
                     </Text>
-                    <Text style={[styles.itemInfo, {borderBottomColor: isDarkMode? accentColor.dark : accentColor.light}]}>
+                    <Text style={[styles.itemInfo, { borderBottomColor: isDarkMode ? accentColor.dark : accentColor.light }]}>
                         Change the color used throughout the app
                     </Text>
                     <View style={styles.itemOptions}>
@@ -232,10 +310,10 @@ const SettingsScreen = (props) => {
                 </View>
 
                 <View style={styles.itemContent}>
-                    <Text style={[styles.itemHead, {color: isDarkMode? accentColor.dark : accentColor.light}]}>
+                    <Text style={[styles.itemHead, { color: isDarkMode ? accentColor.dark : accentColor.light }]}>
                         Visibility
                     </Text>
-                    <Text style={[styles.itemInfo, {borderBottomColor: isDarkMode? accentColor.dark : accentColor.light}]}>
+                    <Text style={[styles.itemInfo, { borderBottomColor: isDarkMode ? accentColor.dark : accentColor.light }]}>
                         Modify who you are visible to
                     </Text>
                     <View style={styles.itemOptions}>
@@ -244,24 +322,17 @@ const SettingsScreen = (props) => {
                 </View>
             </View>
             <View style={styles.supportContainer}>
-                <Text style={[styles.listHeadingStyle, {backgroundColor: isDarkMode? accentColor.dark : accentColor.light}]}>Support Us!</Text>
+                <Text style={[styles.listHeadingStyle, { backgroundColor: isDarkMode ? accentColor.dark : accentColor.light }]}>Support Us!</Text>
             </View>
         </View>
     );
 }
 
-SettingsScreen.propTypes = {
-    userName: PropTypes.string,
-};
-
-SettingsScreen.defaultProps = {
-    userName: "AwesomeUser",
-    profileImageSource: "caveman"
-};
-
 const mapStateToProps = (state) => {
     return {
-        accentColor: state.prefs.accentColor
+        accentColor: state.prefs.accentColor,
+        userName: state.prefs.userName,
+        userProfileIcon: state.prefs.userProfileIcon,
     }
 }
 
