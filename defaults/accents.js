@@ -3,8 +3,8 @@ export const accentColors = [
         name: 'Green',
         //lightHex: '#519657',
         lightHex: '#7bb661',
-        //darkHex: '#20672d'
-        darkHex: '#184e22'
+        darkHex: '#20672d'
+        // darkHex: '#184e22'
     },
     {
         name: 'Blue',

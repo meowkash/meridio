@@ -34,4 +34,5 @@ const images = {
     donate: require('./donate.png')
 };
 
+export const imageList = [ 'caveman', 'elderly', 'female', 'male', 'admin', 'business', 'headphones', 'idea', 'lgbt', 'nerd', 'nurse', 'pram', 'psychic', 'selfish', 'student'];
 export default images;

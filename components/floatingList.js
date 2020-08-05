@@ -150,7 +150,7 @@ const ListEmptyView = (props) => {
                 <View style={emptyListStyles.buttonContainer}>
                     <Text style={emptyListStyles.text}>You have not selected any files for sharing{"\n"}{"\n"}{"\n"}Click on the button below to add files for sending</Text>
                     <TouchableOpacity onPress={addFiles} style={[emptyListStyles.button, { backgroundColor: isDarkMode ? accent.dark : accent.light }]}>
-                        <Text style={{ color: isDarkMode ? theme.dark.secondary : theme.light.secondary }}> Add Files </Text>
+                        <Text style={{ color: isDarkMode ? theme.dark.label : theme.light.primary }}> Add Files </Text>
                     </TouchableOpacity>
                 </View>
             );

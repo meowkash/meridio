@@ -7,8 +7,11 @@ import {
     TouchableOpacity,
     Platform
 } from "react-native";
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { theme } from '../defaults/theme';
+import Images, { imageList } from '../assets/assetIndex';
+import { connect, useDispatch } from "react-redux";
 import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
 
 const dynamicStyle = new DynamicStyleSheet({
@@ -67,7 +70,6 @@ const MeridioHeader = (props) => {
         onPress,
         largeTitle,
         avatarStyle,
-        imageSource,
         containerStyle,
         largeTitleStyle,
         borderColor,
@@ -75,6 +77,7 @@ const MeridioHeader = (props) => {
         largeTitleFontColor,
         largeTitleFontWeight,
         flex,
+        userProfileIcon
     } = props;
 
     const styles = useDynamicValue(dynamicStyle);
@@ -92,7 +95,7 @@ const MeridioHeader = (props) => {
                 </Text>
             </View>
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
-                <Image source={require('../assets/user_caveman.png')} style={{ height: 40, width: 40, marginRight: 10 }} />
+                <Image source={Images.user[userProfileIcon]} style={{ height: 40, width: 40, marginRight: 10 }} />
             </TouchableOpacity>
         </View>
     );
@@ -111,4 +114,10 @@ MeridioHeader.defaultProps = {
     largeTitleFontWeight: "300",
 };
 
-export default MeridioHeader;
+const mapStateToProps = (state) => {
+    return {
+        userProfileIcon: state.prefs.userProfileIcon,
+    }
+}
+
+export default connect(mapStateToProps)(MeridioHeader);

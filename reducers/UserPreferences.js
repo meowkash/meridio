@@ -43,7 +43,8 @@ export const UserPreferences = (state = initialState, action) => {
                 userProfileIcon: state.userProfileIcon
             }
         case ActionTypes.USER_INFO_CHANGED:
-            console.log(action.payload);
+            console.log(action.payload.name);
+            console.log(action.payload.icon);
             return {
                 visibilityLevel: state.visibilityLevel,
                 accentColor: state.accentColor,
