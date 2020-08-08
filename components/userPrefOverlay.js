@@ -166,7 +166,7 @@ export const OverlayView = (props) => {
                         }}
                         flex={1}
                     >
-                        <Text style={[styles.submitButton, { marginHorizontal: '2%', backgroundColor: isDarkMode ? accentColor.dark : accentColor.light, color: isDarkMode ? theme.light.secondary : theme.dark.secondary }]}> Save Changes </Text>
+                        <Text style={[styles.submitButton, { marginHorizontal: '2%', backgroundColor: isDarkMode ? accentColor.dark : accentColor.light, color: isDarkMode ? theme.dark.label : theme.light.label }]}> Save Changes </Text>
                     </TouchableOpacity>
                 </View>
             </Overlay>

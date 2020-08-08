@@ -11,7 +11,7 @@ import Images from '../assets/assetIndex';
 
 import { theme } from '../defaults/theme';
 
-import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -72,6 +72,8 @@ const CompletedShare = (props) => {
 
     const styles = useDynamicValue(dynamicStyles);
 
+    const isDarkMode = useDarkMode();
+
     return (
         <TouchableOpacity>
 
@@ -84,7 +86,7 @@ const CompletedShare = (props) => {
                     {totalFiles} Files {shareType}
                 </Text>
                 <TouchableOpacity style={styles.expandItem}>
-                    <Icon name="information-circle-outline" size={20}> </Icon>
+                    <Icon name="information-circle-outline" size={20} color={isDarkMode ? theme.dark.tertiary : theme.light.tertiary}> </Icon>
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>

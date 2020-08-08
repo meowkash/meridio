@@ -28,7 +28,8 @@ import CompletedShare from './completedShare';
 import { theme } from '../defaults/theme';
 import { pickFiles } from './pickFiles';
 import {
-    addFile
+    addFile,
+    removeAllFiles
 } from '../actions/shareFiles';
 
 
@@ -113,10 +114,11 @@ const emptyListDynamic = new DynamicStyleSheet({
         flex: 1,
         flexGrow: 1,
         textAlignVertical: 'center',
-        flexDirection: 'column',
+        flexDirection: 'row',
     },
     button: {
-        marginBottom: "20%",
+        marginBottom: "8%",
+        marginHorizontal: '5%',
         alignItems: 'center',
         width: 100,
         height: 50,
@@ -135,12 +137,6 @@ const ListEmptyView = (props) => {
 
     const emptyListStyles = useDynamicValue(emptyListDynamic);
 
-    const isDarkMode = useDarkMode();
-
-    const dispatch = useDispatch();
-    
-    const changeFilesList = (newFileList) => dispatch(addFile(newFileList));
-
     switch (listComponentType) {
         case "UserAvatar":
             return (
@@ -151,9 +147,45 @@ const ListEmptyView = (props) => {
         case "FileItem":
             return (
                 <View style={emptyListStyles.buttonContainer}>
-                    <Text style={emptyListStyles.text}>You have not selected any files for sharing{"\n"}{"\n"}{"\n"}Click on the button below to add files for sending</Text>
+                    <Text style={emptyListStyles.text}>You have not selected any files for sharing{"\n"}{"\n"}{"\n"}Click on the 'Add Files' button below to add files for sending{"\n"}{"\n"}{"\n"}Selected Files can be removed by the 'Clear' button</Text>
+                </View>
+            );
+        case "OngoingShare":
+
+        case "CompletedShare":
+    }
+}
+
+const ListFooterView = (props) => {
+    const {
+        listComponentType,
+        accent
+    } = props;
+
+    const emptyListStyles = useDynamicValue(emptyListDynamic);
+
+    const isDarkMode = useDarkMode();
+
+    const dispatch = useDispatch();
+
+    const addFilesToList = (newFileList) => dispatch(addFile(newFileList));
+
+    const clearFilesList = () => dispatch(removeAllFiles());
+
+    switch (listComponentType) {
+        case "UserAvatar":
+            return (null);
+        case "FileItem":
+            return (
+                <View style={emptyListStyles.buttonContainer}>
                     <TouchableOpacity
-                        onPress={() => { pickFiles(dispatch,changeFilesList); }}
+                        onPress={() => clearFilesList()}
+                        style={[emptyListStyles.button, { backgroundColor: isDarkMode ? theme.dark.tertiary : theme.light.tertiary }]}
+                    >
+                        <Text style={{ color: isDarkMode ? theme.light.secondary : theme.dark.secondary }}> Clear </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => { pickFiles(dispatch, addFilesToList); }}
                         style={[emptyListStyles.button, { backgroundColor: isDarkMode ? accent.dark : accent.light }]}
                     >
                         <Text style={{ color: isDarkMode ? theme.dark.label : theme.light.label }}> Add Files </Text>
@@ -161,9 +193,10 @@ const ListEmptyView = (props) => {
                 </View>
             );
         case "OngoingShare":
-
+            return(null);
         case "CompletedShare":
-    }
+            return(null);
+    }   
 }
 
 // Intelligently select the type of item in the list to be rendered
@@ -258,6 +291,17 @@ const FloatingList = (props) => {
                     />
                 }
                 keyExtractor={item => item.id}
+                ListFooterComponent={
+                    <ListFooterView
+                        listComponentType={listElementType}
+                        accent={accentColor}
+                    />
+                }
+                ListFooterComponentStyle={
+                    {
+                        marginTop: "5%",    
+                    }
+                }
             />
         </View>
     );

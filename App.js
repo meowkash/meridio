@@ -1,29 +1,14 @@
 import React, { useEffect } from 'react';
 import {
     SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    FlatList,
-    Platform,
     PermissionsAndroid
 } from 'react-native';
-
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
 import { NavigationContainer } from '@react-navigation/native';
 
 import 'react-native-gesture-handler';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Feather';
 
 import {
     useDarkMode,
@@ -41,9 +26,6 @@ import {
     connect
 } from 'react-redux';
 
-import {
-    bindActionCreators
-} from 'redux';
 
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
@@ -114,7 +96,7 @@ const App: () => React$Node = (props) => {
                                 tabBarAccessibilityLabel: 'Send',
                                 tabBarLabel: 'Send',
                                 tabBarIcon: ({ color }) => (
-                                    <MaterialCommunityIcons name="file-export-outline" color={color} size={24} />
+                                    <Icon name="upload" color={color} size={24} />
                                 ),
                             }}
                         />
@@ -126,7 +108,7 @@ const App: () => React$Node = (props) => {
                                 tabBarLabel: 'Receive',
                                 // tabBarColor: '#00695c',
                                 tabBarIcon: ({ color }) => (
-                                    <MaterialCommunityIcons name="file-import-outline" color={color} size={24} />
+                                    <Icon name="download" color={color} size={24} />
                                 ),
                             }}
                         />
@@ -135,10 +117,10 @@ const App: () => React$Node = (props) => {
                             component={SettingsScreen}
                             options={{
                                 tabBarAccessibilityLabel: 'Settings',
-                                tabBarLabel: 'Settiings',
+                                tabBarLabel: 'Settings',
                                 // tabBarColor: '#bf360c',
                                 tabBarIcon: ({ color }) => (
-                                    <Ionicons name="settings-outline" color={color} size={24} />
+                                    <Icon name="settings" color={color} size={24} />
                                 ),
                             }}
                         />

@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
     SafeAreaView,
@@ -11,9 +11,6 @@ import { theme } from '../defaults/theme';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
 import { OverlayView } from './userPrefOverlay';
-
-import CompletedShare from './completedShare';
-import OngoingShare from './ongoingShare';
 
 const userDATA = [
     {

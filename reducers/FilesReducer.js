@@ -10,11 +10,19 @@ const initialState = {
 export const FilesReducer = (state = initialState, action) => {
     switch(action.type) {
         case ActionTypes.FILE_ADDED:
+            var uniqueItems = [...new Set(state.selected.concat(action.payload))]
             return {
-                selected: state.selected.concat(action.payload),
+                selected: uniqueItems,
                 sent: state.sent,
                 received: state.received
             };
+
+        case ActionTypes.FILE_SELECTION_CLEARED:
+            return {
+                selected: [],
+                sent: state.sent,
+                received: state.received
+            }
         case ActionTypes.FILE_ADDED:
 
         case ActionTypes.FILE_INCOMING:

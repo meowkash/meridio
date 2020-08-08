@@ -27,7 +27,7 @@ export async function pickFiles(dispatch, changeFileList) {
                 fileSizeInBytes = fileSizeInBytes / 1024;
                 i++;
             } while (fileSizeInBytes > 1024);
-
+            
             let file = {
                 id: res.fileCopyUri,
                 uri: res.uri,
