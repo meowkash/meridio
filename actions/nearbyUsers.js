@@ -1,28 +1,20 @@
 import {
-    USER_DISCOVERED,
-    USER_LOST,
-    USER_SELECTED,
-    USER_REMOVED_FROM_SHARE
+    USER_ADDED_TO_SHARE,
+    USER_REMOVED_FROM_SHARE,
+    USERS_UPDATED
 } from './actionTypes';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const newUserDiscovered = (user) => {
+export const nearbyUsersUpdated = (users) => {
     return {
-        type: USER_DISCOVERED,
-        payload: user
-    }
-}
-
-export const userLostFromRange = (user) => {
-    return {
-        type: USER_LOST,
-        payload: user
+        type: USERS_UPDATED,
+        payload: users
     }
 }
 
 export const userAddedToShare = (user) => {
     return {
-        type: USER_SELECTED,
+        type: USER_ADDED_TO_SHARE,
         payload: user
     }
 }

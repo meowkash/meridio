@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
     Text,
@@ -8,11 +8,10 @@ import {
     Platform
 } from "react-native";
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { theme } from '../defaults/theme';
 import Images, { imageList } from '../assets/assetIndex';
 import { connect, useDispatch } from "react-redux";
-import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 
 const dynamicStyle = new DynamicStyleSheet({
     container: {
@@ -69,23 +68,21 @@ const MeridioHeader = (props) => {
     const {
         onPress,
         largeTitle,
-        avatarStyle,
-        containerStyle,
-        largeTitleStyle,
-        borderColor,
         largeTitleFontSize,
-        largeTitleFontColor,
         largeTitleFontWeight,
         flex,
-        userProfileIcon
+        userProfileIcon,
+        visibility,
+        setVisibility
     } = props;
 
     const styles = useDynamicValue(dynamicStyle);
 
     return (
         <View style={[container(flex), styles.container]}>
+
             <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
-                <Text style={{color: theme.light.accent}}>Logo</Text>
+                <Text style={{ color: theme.light.accent }}>Logo</Text>
             </TouchableOpacity>
             <View>
                 <Text
@@ -94,7 +91,10 @@ const MeridioHeader = (props) => {
                     {largeTitle}
                 </Text>
             </View>
-            <TouchableOpacity style={styles.avatarContainerStyle} onPress={onPress}>
+            <TouchableOpacity style={styles.avatarContainerStyle} onPress={() => {
+                if (visibility === false)
+                    setVisibility(true);
+            }}>
                 <Image source={Images.user[userProfileIcon]} style={{ height: 40, width: 40, marginRight: 10 }} />
             </TouchableOpacity>
         </View>
@@ -104,7 +104,6 @@ const MeridioHeader = (props) => {
 MeridioHeader.propTypes = {
     largeTitle: PropTypes.string,
     largeTitleFontSize: PropTypes.number,
-    largeTitleFontColor: PropTypes.string,
     largeTitleFontWeight: PropTypes.string,
 };
 

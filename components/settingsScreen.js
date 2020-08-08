@@ -128,7 +128,7 @@ const dynamicStyles = new DynamicStyleSheet({
         fontSize: 16,
         alignItems: 'center',
         paddingTop: 2,
-        color: new DynamicValue(theme.light.primary, theme.dark.primary)
+        color: new DynamicValue(theme.light.label, theme.dark.label)
     },
     itemHead: {
         flex: 1,

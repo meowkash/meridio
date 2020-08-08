@@ -1,5 +1,3 @@
-const { act } = require("react-test-renderer");
-
 import * as ActionTypes from "../actions/actionTypes";
 
 // Default initial state for NearbyUsers
@@ -15,11 +13,16 @@ export const Users = (state = initialState, action) => {
                 nearby: action.payload,
                 selectedForShare: state.selectedForShare
             };
-        case ActionTypes.USER_SHARE_UPDATED:
+        case ActionTypes.USER_ADDED_TO_SHARE:
             return {
                 nearby: state.nearby,
                 selectedForShare: action.payload
             };
+        case ActionTypes.USER_REMOVED_FROM_SHARE:
+            return {
+                nearby: state.nearby,
+                selectedForShare: action.payload
+            }
         default: 
             return state;
     }

@@ -5,7 +5,6 @@ import {
 } from './actionTypes';
 
 export const changeVisibility = (pref) => {
-    console.log(pref)
     return {
         type: VISIBILITY_CHANGED,
         payload: pref

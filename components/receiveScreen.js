@@ -1,22 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 
 import {
-    Text,
-    Image,
-    StyleSheet,
-    TouchableOpacity,
     SafeAreaView,
-    ScrollView,
-    View,
-    FlatList
 } from 'react-native';
 
 import { connect } from "react-redux";
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
-import { DynamicValue, DynamicStyleSheet, useDynamicValue } from 'react-native-dynamic';
+import { DynamicValue, DynamicStyleSheet, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
+import { OverlayView } from './userPrefOverlay';
+
 import CompletedShare from './completedShare';
 import OngoingShare from './ongoingShare';
 
@@ -72,16 +67,48 @@ const dynamicStyles = new DynamicStyleSheet({
     container: {
         backgroundColor: new DynamicValue(theme.light.background, theme.dark.background),
         flex: 1
+    },
+    submitButton: {
+        borderRadius: 50,
+        width: 150,
+        height: 50,
+        marginTop: "5%",
+        marginBottom: "5%",
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        color: new DynamicValue(theme.light.label, theme.dark.label)
     }
 })
 
-export default function ReceiveScreen() {
+const ReceiveScreen = (props) => {
+    const {
+        userName, 
+        userProfileIcon,
+        accentColor
+    } = props;
+
     const styles = useDynamicValue(dynamicStyles);
+
+    const [overlayVisibility, setOverlayVisibility] = useState(false);
+
+    const isDarkMode = useDarkMode();
+
     return (
         <SafeAreaView style={styles.container}>
+            <OverlayView
+                visibility={overlayVisibility}
+                setVisibility={setOverlayVisibility}
+                accentColor={accentColor}
+                userName={userName}
+                userProfileIcon={userProfileIcon}
+                styles={styles}
+                isDarkMode={isDarkMode}
+            />
             <MeridioHeader
                 largeTitleFontSize={22}
                 flex={1}
+                visibility={overlayVisibility}
+                setVisibility={setOverlayVisibility}
             />
             <FloatingList
                 dataSrc={userDATA}
@@ -100,3 +127,13 @@ export default function ReceiveScreen() {
         </SafeAreaView>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        accentColor: state.prefs.accentColor,
+        userName: state.prefs.userName,
+        userProfileIcon: state.prefs.userProfileIcon,
+    }
+}
+
+export default connect(mapStateToProps)(ReceiveScreen); 
