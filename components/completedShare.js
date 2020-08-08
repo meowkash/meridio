@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {
     Text,
     Image,
     View,
-    StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 
 import Images from '../assets/assetIndex';
+
 import { theme } from '../defaults/theme';
+
 import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const dynamicStyles = new DynamicStyleSheet({
     container: {
@@ -18,7 +21,7 @@ const dynamicStyles = new DynamicStyleSheet({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        borderBottomWidth: 0.2,
+        borderBottomWidth: 0.5,
         paddingBottom: 4,
         paddingTop: 4,
         paddingRight: 0,
@@ -27,56 +30,65 @@ const dynamicStyles = new DynamicStyleSheet({
     },
     name: {
         alignItems: 'flex-start',
-        flex: 5,
-        marginHorizontal: 10,
+        flex: 3,
+        marginHorizontal: '1%',
+        fontSize: 15,
+        height: 50,
+        justifyContent: 'center',
+        textAlignVertical: 'center',
         paddingLeft: 2,
         paddingRight: 2,
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
-    size: {
-        flex: 1.2,
-        textAlign: 'center',
-        marginRight: 20,
+    totalFiles: {
+        flex: 3,
+        textAlign: 'right',
+        marginRight: '2%',
         paddingRight: 2,
         color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
     },
     icon: {
-        flex: 0.2,
-        height: 40,
+        flex: 1,
+        height: 50,
         resizeMode: 'contain',
+        marginLeft: '1%',
+        marginRight: '1%'
+    },
+    expandItem: {
+        flex: 0.5,
+        height: 50,
+        justifyContent: 'center',
+        marginRight: '2%',
     }
 })
 
 const CompletedShare = (props) => {
     const {
-        fileType,
-        fileName,
-        fileSize,
+        userIcon,
+        userName,
+        totalFiles,
+        shareType
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
 
     return (
         <TouchableOpacity>
+
             <View style={styles.container}>
-                <Image source={Images.file[fileType]} style={styles.icon} />
+                <Image source={Images.user[userIcon]} style={styles.icon} />
                 <Text style={styles.name}>
-                    {fileName}
+                    {userName}
                 </Text>
-                <Text style={styles.size}>
-                    {fileSize}
+                <Text style={styles.totalFiles}>
+                    {totalFiles} Files {shareType}
                 </Text>
+                <TouchableOpacity style={styles.expandItem}>
+                    <Icon name="information-circle-outline" size={20}> </Icon>
+                </TouchableOpacity>
             </View>
         </TouchableOpacity>
     );
 }
-
-CompletedShare.defaultProps = {
-    //avatarIcon: 'user_male',
-    fileType: 'user_male',
-    //userName: "AwesomeUser",
-    fileName: 'Awesome',
-    fileSize: '2 MB'
-};
 
 export default CompletedShare;

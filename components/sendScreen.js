@@ -40,7 +40,8 @@ const SendScreen = (props) => {
     const {
         userName, 
         userProfileIcon,
-        accentColor
+        accentColor,
+        filesSelected
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
@@ -93,6 +94,7 @@ const SendScreen = (props) => {
             />
             <FloatingList
                 isHorizontal={false}
+                dataSrc={filesSelected}
                 listTitle="Files"
                 listElementType="FileItem"
                 flex={12}
@@ -106,6 +108,7 @@ const mapStateToProps = (state) => {
         accentColor: state.prefs.accentColor,
         userName: state.prefs.userName,
         userProfileIcon: state.prefs.userProfileIcon,
+        filesSelected: state.files.selected
     }
 }
 

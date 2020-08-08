@@ -1,5 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
+import React from "react";
+
 import PropTypes from "prop-types";
+
 import {
     Text,
     View,
@@ -9,8 +11,11 @@ import {
 } from "react-native";
 
 import { theme } from '../defaults/theme';
-import Images, { imageList } from '../assets/assetIndex';
-import { connect, useDispatch } from "react-redux";
+
+import Images from '../assets/assetIndex';
+
+import { connect } from "react-redux";
+
 import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 
 const dynamicStyle = new DynamicStyleSheet({

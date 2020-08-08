@@ -34,33 +34,26 @@ const userDATA = [
 ]
 const DATA = [
     {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        //name: 'First',
-        //icon: 'selfish'
-        type: 'doc',
-        percent: 29,
-        done: 79,
-        total: 100
+        id: 'bd7acbea-c1b1-46c2-aef5-3ad53abb28ba',
+        userName: 'Arthas',
+        userIcon: 'caveman',
+        totalFiles: 100,
+        shareType: 'Received'
     },
     {
-            id: 'bd7acbea-c1b1-46c2-aef5-3ad53abb28ba',
-            //name: 'First',
-            //icon: 'selfish'
-            name: 'doc',
-            percent: 29,
-            done: 89,
-            total: 100
-        },
-    /*{
         id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        name: 'Second',
-        icon: 'male'
+        userName: 'Phuuu',
+        userIcon: 'male',
+        totalFiles: 69,
+        shareType: 'Sent'
     },
     {
         id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        name: 'Third',
-        icon: 'female'
-    },*/
+        userName: 'Duckkuuu',
+        userIcon: 'female',
+        totalFiles: 10,
+        shareType: 'Sent'
+    }
 ]
 
 const dynamicStyles = new DynamicStyleSheet({
@@ -82,7 +75,7 @@ const dynamicStyles = new DynamicStyleSheet({
 
 const ReceiveScreen = (props) => {
     const {
-        userName, 
+        userName,
         userProfileIcon,
         accentColor
     } = props;

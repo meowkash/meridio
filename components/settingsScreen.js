@@ -1,13 +1,11 @@
-import React, { Component, useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+
 import {
     Text,
     View,
     Image,
     TouchableOpacity,
-    Pressable,
     TextInput,
-    Button
 } from "react-native";
 
 import Overlay from 'react-native-modal-overlay';

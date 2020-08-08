@@ -14,7 +14,7 @@ export const USER_CONNECTED = 'USER_CONNECTED';
 export const USER_UNABLE_TO_CONNECT = 'USER_UNABLE_TO_CONNECT';
 
 // File Sending 
-export const FILE_SELECTED = 'FILE_SELECTED';
+export const FILES_SELECTED = 'FILES_SELECTED';
 export const FILE_ADDED = 'FILE_ADDED';
 export const FILE_ADDING_FAILED = 'FILE_ADDING_FAILED';
 

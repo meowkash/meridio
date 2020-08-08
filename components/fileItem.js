@@ -52,22 +52,21 @@ const FileItem = (props) => {
         fileType,
         fileName,
         fileSize,
+        fileLocation
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
 
     return (
-        <TouchableOpacity>
-            <View style={styles.container}>
-                <Image source={Images.file[fileType]} style={styles.icon} />
-                <Text style={styles.name}>
-                    {fileName}
-                </Text>
-                <Text style={styles.size}>
-                    {fileSize}
-                </Text>
-            </View>
-        </TouchableOpacity>
+        <View style={styles.container}>
+            <Image source={Images.file[fileType]} style={styles.icon} />
+            <Text style={styles.name}>
+                {fileName}
+            </Text>
+            <Text style={styles.size}>
+                {fileSize}
+            </Text>
+        </View>
     );
 }
 

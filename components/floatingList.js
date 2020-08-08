@@ -3,19 +3,15 @@ import PropTypes from "prop-types";
 import {
     Text,
     View,
-    Image,
     TouchableOpacity,
-    Platform,
-    SafeAreaView,
-    ScrollView,
     FlatList,
-    Button
 } from "react-native";
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Entypo';
 
 import {
-    connect
+    connect,
+    useDispatch
 } from 'react-redux';
 
 import {
@@ -30,8 +26,11 @@ import FileItem from './fileItem';
 import OngoingShare from './ongoingShare';
 import CompletedShare from './completedShare';
 import { theme } from '../defaults/theme';
-import { addFiles } from './pickFiles';
-import { color } from "react-native-reanimated";
+import { pickFiles } from './pickFiles';
+import {
+    addFile
+} from '../actions/shareFiles';
+
 
 // Stylesheets
 const container = (viewFlex) => {
@@ -106,7 +105,7 @@ const emptyListDynamic = new DynamicStyleSheet({
         flex: 1,
         flexGrow: 1,
         flexWrap: 'wrap',
-        textAlign: "center",    
+        textAlign: "center",
         backgroundColor: new DynamicValue(theme.light.tertiaryBackground, theme.dark.tertiaryBackground)
     },
     buttonContainer: {
@@ -138,6 +137,10 @@ const ListEmptyView = (props) => {
 
     const isDarkMode = useDarkMode();
 
+    const dispatch = useDispatch();
+    
+    const changeFilesList = (newFileList) => dispatch(addFile(newFileList));
+
     switch (listComponentType) {
         case "UserAvatar":
             return (
@@ -149,7 +152,10 @@ const ListEmptyView = (props) => {
             return (
                 <View style={emptyListStyles.buttonContainer}>
                     <Text style={emptyListStyles.text}>You have not selected any files for sharing{"\n"}{"\n"}{"\n"}Click on the button below to add files for sending</Text>
-                    <TouchableOpacity onPress={addFiles} style={[emptyListStyles.button, { backgroundColor: isDarkMode ? accent.dark : accent.light }]}>
+                    <TouchableOpacity
+                        onPress={() => { pickFiles(dispatch,changeFilesList); }}
+                        style={[emptyListStyles.button, { backgroundColor: isDarkMode ? accent.dark : accent.light }]}
+                    >
                         <Text style={{ color: isDarkMode ? theme.dark.label : theme.light.label }}> Add Files </Text>
                     </TouchableOpacity>
                 </View>
@@ -183,6 +189,7 @@ const ListItem = (props) => {
                     fileType={item.type}
                     fileName={item.name}
                     fileSize={item.size}
+                    fileLocation={item.uri}
                 />
             );
         case 'OngoingShare':
@@ -199,8 +206,10 @@ const ListItem = (props) => {
             return (
                 <CompletedShare
                     id={item.id}
-                    avatarIcon={item.icon}
-                    userName={item.name}
+                    userName={item.userName}
+                    userIcon={item.userIcon}
+                    totalFiles={item.totalFiles}
+                    shareType={item.shareType}
                 />
             );
         default:
@@ -229,12 +238,12 @@ const FloatingList = (props) => {
         <View style={[container(flex), styles.container]}>
             <Text style={[styles.heading, { backgroundColor: isDarkMode ? accentColor.dark : accentColor.light }]}>
                 {listTitle}
-                <Ionicons name="chevron-forward"> </Ionicons>
+                {"\t"}<Icon name="chevron-thin-right"> </Icon>
             </Text>
             <FlatList
                 horizontal={isHorizontal}
                 style={styles.listStyle}
-                contentContainerStyle={{flexGrow: 1}}
+                contentContainerStyle={{ flexGrow: 1 }}
                 data={dataSrc}
                 renderItem={({ item, index, separators }) => (
                     <ListItem
