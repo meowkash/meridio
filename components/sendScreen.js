@@ -4,12 +4,11 @@ import {
     SafeAreaView,
 } from 'react-native';
 
-import {
-    subscribeOnPeersUpdates
-} from 'react-native-wifi-p2p';
+import * as WiFiP2P from 'react-native-wifi-p2p';
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
+import { connectionChannel } from '../defaults/meridioConfig';
 import { DynamicValue, DynamicStyleSheet, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 import MeridioHeader from './meridioHeader';
 import { OverlayView } from './userPrefOverlay';
@@ -38,7 +37,7 @@ const dynamicStyles = new DynamicStyleSheet({
 
 const SendScreen = (props) => {
     const {
-        userName, 
+        userName,
         userProfileIcon,
         accentColor,
         filesSelected
@@ -52,21 +51,22 @@ const SendScreen = (props) => {
 
     // Make sure that on first load and update, the component can start discovering nearby users
     useEffect(() => {
-        subscribeOnPeersUpdates(({ devices }) => {
-            console.log(`New devices available: ${devices}`);
-            // First, scan for visible devices, connect to them, check if they belong to Meridio, download the profile picture and name and then use it 
-            /*
-                let users = []
-                for device in devices :
-                    connect(device_address);
-                    
-                    users.append({
-                        id: device_address,
-                        name: device_name
-                    })
-            */
-        });
-        
+        WiFiP2P.getAvailablePeers()
+            .then(({ devices }) => {
+                console.log(devices);
+            })
+        // First, scan for visible devices, connect to them, check if they belong to Meridio, download the profile picture and name and then use it 
+        /*
+            let users = []
+            for device in devices :
+                connect(device_address);
+                
+                users.append({
+                    id: device_address,
+                    name: device_name
+                })
+        */
+
     });
 
     return (
