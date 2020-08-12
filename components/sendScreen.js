@@ -2,6 +2,8 @@ import React, { Component, useEffect, useState } from 'react';
 
 import {
     SafeAreaView,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 import * as WiFiP2P from 'react-native-wifi-p2p';
@@ -40,7 +42,8 @@ const SendScreen = (props) => {
         userName,
         userProfileIcon,
         accentColor,
-        filesSelected
+        filesSelected,
+        nearbyUsers
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
@@ -49,23 +52,30 @@ const SendScreen = (props) => {
 
     const isDarkMode = useDarkMode();
 
+    const dispatch = useDispatch();
+
+    const modifyUsersList = (newUserList) => dispatch(nearbyUsersUpdated(newUserList));
+
     // Make sure that on first load and update, the component can start discovering nearby users
     useEffect(() => {
-        WiFiP2P.getAvailablePeers()
-            .then(({ devices }) => {
-                console.log(devices);
-            })
-        // First, scan for visible devices, connect to them, check if they belong to Meridio, download the profile picture and name and then use it 
-        /*
-            let users = []
-            for device in devices :
-                connect(device_address);
-                
-                users.append({
-                    id: device_address,
-                    name: device_name
-                })
-        */
+        WiFiP2P.subscribeOnPeersUpdates(({ devices }) => {
+            var users = [];
+            if (devices.length == 0) {
+                users = [];
+                modifyUsersList(users);
+            }
+            else {
+                for (var device of devices) {
+                    let user = {
+                        id: device.deviceAddress,
+                        icon: 'caveman',
+                        name: device.deviceName
+                    };
+                    users.push(user);
+                    modifyUsersList(users);
+                }
+            }
+        });
 
     });
 
@@ -88,6 +98,7 @@ const SendScreen = (props) => {
             />
             <FloatingList
                 isHorizontal={true}
+                dataSrc={nearbyUsers}
                 listTitle="Nearby Users"
                 listElementType="UserAvatar"
                 flex={5}
@@ -108,7 +119,8 @@ const mapStateToProps = (state) => {
         accentColor: state.prefs.accentColor,
         userName: state.prefs.userName,
         userProfileIcon: state.prefs.userProfileIcon,
-        filesSelected: state.files.selected
+        filesSelected: state.files.selected,
+        nearbyUsers: state.users.nearby
     }
 }
 

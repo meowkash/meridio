@@ -8,42 +8,50 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+import {
+    connect,
+} from 'react-redux';
+
 import Images from '../assets/assetIndex';
 import { theme } from '../defaults/theme';
-import { DynamicStyleSheet, DynamicValue, useDynamicValue } from 'react-native-dynamic';
+import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
 
-const dynamicStyle = new DynamicStyleSheet({
+const styles = {
     text: {
         alignSelf: "center",
-        alignItems: "center",
-        color: new DynamicValue(theme.light.secondary, theme.dark.secondary)
+        alignItems: "center"
     },
     image: {
-        width: 90,
-        height: 90,
-        resizeMode: 'contain'
+        width: 60,
+        height: 60,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        alignItems: 'center',
     },
     container: {
         alignItems: "center",
+        justifyContent: 'center',
+        marginHorizontal: 10,
         paddingTop: 4,
         paddingBottom: 4,
         paddingLeft: 4,
     }
-})
+};
 
 const UserAvatar = (props) => {
     const {
         avatarIcon,
         userName,
+        accentColor
     } = props;
-    
-    const styles = useDynamicValue(dynamicStyle);
+
+    const isDarkMode = useDarkMode();
 
     return (
         <View style={styles.container}>
             <TouchableOpacity>
                 <Image source={Images.user[avatarIcon]} style={styles.image} />
-                <Text style={styles.text}>
+                <Text style={[styles.text, { color: isDarkMode ? accentColor.light : accentColor.dark }]}>
                     {userName}
                 </Text>
             </TouchableOpacity>
@@ -51,9 +59,10 @@ const UserAvatar = (props) => {
     );
 }
 
-UserAvatar.defaultProps = {
-    avatarIcon: 'user_male',
-    userName: "AwesomeUser",
-};
+const mapStateToProps = (state) => {
+    return {
+        accentColor: state.prefs.accentColor
+    }
+}
 
-export default UserAvatar;
+export default connect(mapStateToProps)(UserAvatar);

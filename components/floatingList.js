@@ -32,6 +32,10 @@ import {
     removeAllFiles
 } from '../actions/shareFiles';
 
+import {
+    getAvailablePeers
+} from 'react-native-wifi-p2p';
+
 
 // Stylesheets
 const container = (viewFlex) => {
@@ -193,10 +197,10 @@ const ListFooterView = (props) => {
                 </View>
             );
         case "OngoingShare":
-            return(null);
+            return (null);
         case "CompletedShare":
-            return(null);
-    }   
+            return (null);
+    }
 }
 
 // Intelligently select the type of item in the list to be rendered
@@ -299,7 +303,7 @@ const FloatingList = (props) => {
                 }
                 ListFooterComponentStyle={
                     {
-                        marginTop: "5%",    
+                        marginTop: "5%",
                     }
                 }
             />

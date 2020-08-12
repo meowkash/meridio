@@ -26,7 +26,6 @@ import {
     connect
 } from 'react-redux';
 
-
 import SendScreen from './components/sendScreen';
 import ReceiveScreen from './components/receiveScreen';
 import SettingsScreen from './components/settingsScreen';
