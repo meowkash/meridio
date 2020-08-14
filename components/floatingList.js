@@ -215,6 +215,7 @@ const ListItem = (props) => {
             return (
                 <UserAvatar
                     id={item.id}
+                    macAddress={item.address}
                     avatarIcon={item.icon}
                     userName={item.name}
                 />

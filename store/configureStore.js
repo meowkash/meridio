@@ -7,24 +7,26 @@ import { AsyncStorage } from 'react-native';
 import { FilesReducer } from '../reducers/FilesReducer';
 import { Users } from '../reducers/Users';
 import { UserPreferences } from '../reducers/UserPreferences';
+import { ConnectionReducer } from '../reducers/ConnectionReducer';
 
 const rootReducer = combineReducers({
     files: FilesReducer,
     users: Users,
-    prefs: UserPreferences
+    prefs: UserPreferences,
+    connection: ConnectionReducer
 });
 
 const persistConfig = {
     key: "root",
     storage: AsyncStorage,
-    blacklist: ['users']
+    blacklist: ['users', 'files', 'connection']
 };
 
 const configureStore = () => {
     const persistedReducer = persistReducer(persistConfig, rootReducer);
     const store = createStore(persistedReducer);
     const persistor = persistStore(store);
-    return { store, persistor};
+    return { store, persistor };
 }
 
 export default configureStore;

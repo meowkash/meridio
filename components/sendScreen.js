@@ -20,6 +20,10 @@ import {
     nearbyUsersUpdated
 } from '../actions/nearbyUsers';
 
+import {
+    createServer
+} from './connectionUtilities';
+
 const dynamicStyles = new DynamicStyleSheet({
     container: {
         backgroundColor: new DynamicValue(theme.light.background, theme.dark.background),
@@ -43,7 +47,8 @@ const SendScreen = (props) => {
         userProfileIcon,
         accentColor,
         filesSelected,
-        nearbyUsers
+        nearbyUsers,
+        connectionRole
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
@@ -55,7 +60,7 @@ const SendScreen = (props) => {
     const dispatch = useDispatch();
 
     const modifyUsersList = (newUserList) => dispatch(nearbyUsersUpdated(newUserList));
-
+    
     // Make sure that on first load and update, the component can start discovering nearby users
     useEffect(() => {
         WiFiP2P.subscribeOnPeersUpdates(({ devices }) => {
@@ -68,6 +73,7 @@ const SendScreen = (props) => {
                 for (var device of devices) {
                     let user = {
                         id: device.deviceAddress,
+                        address: device.deviceAddress,
                         icon: 'caveman',
                         name: device.deviceName
                     };
@@ -76,8 +82,8 @@ const SendScreen = (props) => {
                 }
             }
         });
-
     });
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -120,7 +126,8 @@ const mapStateToProps = (state) => {
         userName: state.prefs.userName,
         userProfileIcon: state.prefs.userProfileIcon,
         filesSelected: state.files.selected,
-        nearbyUsers: state.users.nearby
+        nearbyUsers: state.users.nearby,
+        connectionRole: state.connection.role
     }
 }
 

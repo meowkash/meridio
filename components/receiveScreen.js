@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
     SafeAreaView,
+    PermissionsAndroid
 } from 'react-native';
 
 import { connect } from "react-redux";
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
-import { DynamicValue, DynamicStyleSheet, useDynamicValue, useDarkMode } from 'react-native-dynamic';
+import {
+    DynamicValue,
+    DynamicStyleSheet,
+    useDynamicValue,
+    useDarkMode
+} from 'react-native-dynamic';
+
 import MeridioHeader from './meridioHeader';
 import { OverlayView } from './userPrefOverlay';
+
+import {
+    receiveFromClient
+} from './connectionUtilities';
 
 const userDATA = [
     {
@@ -74,7 +85,8 @@ const ReceiveScreen = (props) => {
     const {
         userName,
         userProfileIcon,
-        accentColor
+        accentColor,
+        connectionRole
     } = props;
 
     const styles = useDynamicValue(dynamicStyles);
@@ -82,6 +94,10 @@ const ReceiveScreen = (props) => {
     const [overlayVisibility, setOverlayVisibility] = useState(false);
 
     const isDarkMode = useDarkMode();
+
+    useEffect(() => {
+        receiveFromClient();
+    });
 
     return (
         <SafeAreaView style={styles.container}>
@@ -123,6 +139,7 @@ const mapStateToProps = (state) => {
         accentColor: state.prefs.accentColor,
         userName: state.prefs.userName,
         userProfileIcon: state.prefs.userProfileIcon,
+        connectionRole: state.connection.role
     }
 }
 

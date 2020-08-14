@@ -5,16 +5,21 @@ import {
     Image,
     View,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    PermissionsAndroid
 } from 'react-native';
 
 import {
     connect,
 } from 'react-redux';
 
+import * as WiFiP2P from 'react-native-wifi-p2p';
+
 import Images from '../assets/assetIndex';
 import { theme } from '../defaults/theme';
 import { DynamicStyleSheet, DynamicValue, useDynamicValue, useDarkMode } from 'react-native-dynamic';
+
+import { sendFilesToServer } from './connectionUtilities';
 
 const styles = {
     text: {
@@ -40,16 +45,40 @@ const styles = {
 
 const UserAvatar = (props) => {
     const {
+        macAddress,
         avatarIcon,
         userName,
-        accentColor
+        accentColor,
+        filesSelected
     } = props;
 
     const isDarkMode = useDarkMode();
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    // Ensure we have permissions to perform file sharing
+                    PermissionsAndroid.request(
+                        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                        {
+                            'title': 'Access to read',
+                            'message': 'READ_EXTERNAL_STORAGE'
+                        }
+                    )
+                        .then(granted => {
+                            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                                console.log("You can use the storage")
+                            } else {
+                                console.log("Storage permission denied")
+                            }
+                        })
+                        .then(() => 
+                            sendFilesToServer(macAddress, filesSelected)
+                        )
+                        .catch(err => console.log('Not enough permissions'));
+                }}
+            >
                 <Image source={Images.user[avatarIcon]} style={styles.image} />
                 <Text style={[styles.text, { color: isDarkMode ? accentColor.light : accentColor.dark }]}>
                     {userName}
@@ -61,7 +90,8 @@ const UserAvatar = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        accentColor: state.prefs.accentColor
+        accentColor: state.prefs.accentColor,
+        filesSelected: state.files.selected,
     }
 }
 
