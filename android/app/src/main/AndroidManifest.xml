@@ -1,8 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.meridio">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>            
+    <uses-feature
+        android:name="android.hardware.wifi.direct"
+    />
+    <uses-feature
+        android:name="android.hardware.location"
+    />
+    <uses-feature
+        android:name="android.hardware.wifi"
+    />
+
+    <uses-permission 
+        android:required="true"
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission 
+        android:required="true"
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>            
 
     <uses-permission
         android:required="true"

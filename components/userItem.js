@@ -59,24 +59,25 @@ const UserAvatar = (props) => {
             <TouchableOpacity
                 onPress={() => {
                     // Ensure we have permissions to perform file sharing
-                    PermissionsAndroid.request(
-                        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-                        {
-                            'title': 'Access to read',
-                            'message': 'READ_EXTERNAL_STORAGE'
-                        }
-                    )
-                        .then(granted => {
-                            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                                console.log("You can use the storage")
-                            } else {
-                                console.log("Storage permission denied")
-                            }
-                        })
-                        .then(() => 
-                            sendFilesToServer(macAddress, filesSelected)
-                        )
-                        .catch(err => console.log('Not enough permissions'));
+                    // PermissionsAndroid.request(
+                    //     PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                    //     {
+                    //         'title': 'Access to read',
+                    //         'message': 'READ_EXTERNAL_STORAGE'
+                    //     }
+                    // )
+                    //     .then(granted => {
+                    //         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    //             console.log("You can use the storage")
+                    //         } else {
+                    //             console.log("Storage permission denied")
+                    //         }
+                    //     })
+                    //     .then(() => 
+
+                    //     )
+                    //     .catch(err => console.log('Not enough permissions'));
+                    sendFilesToServer(macAddress, filesSelected);
                 }}
             >
                 <Image source={Images.user[avatarIcon]} style={styles.image} />
