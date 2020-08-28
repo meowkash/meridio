@@ -1,12 +1,25 @@
 import * as WiFiP2P from 'react-native-wifi-p2p';
 
-const sendFiles = (files) => {
-    const nextFile = files.shift();
+import React from 'react';
 
+import {
+    useDispatch
+} from 'react-redux';
+
+import {
+    removeAllFiles
+} from '../actions/shareFiles';
+
+const sendFiles = (files) => {
+    // const dispatch = useDispatch();
+    // const clearFilesList = () => dispatch(removeAllFiles());
+    const nextFile = files.shift();
     if (nextFile) {
         console.log('Sending file ', nextFile.name);
-        return WiFiP2P.sendMessage(nextFile.name).then(WiFiP2P.sendFile(nextFile.uri)).then(_ => WiFiP2P.sendFiles(files));
+        // return WiFiP2P.sendMessage(nextFile.name).then(() => WiFiP2P.sendFile(nextFile.uri)).then(_ => sendFiles(files));
+        return WiFiP2P.sendMessage(nextFile.name).then(_ => sendFiles(files));
     } else {
+        // clearFilesList();
         return Promise.resolve();
     }
 }
@@ -14,16 +27,18 @@ const sendFiles = (files) => {
 export const sendFilesToServer = (macAddr, files) => {
 
     console.log(files, macAddr);
-    files.forEach(file => {
-        WiFiP2P.connect(macAddr)
-            // Resolve connection details using getConnectionInfo
-            .then(() => WiFiP2P.getConnectionInfo())
-            .then(() => {
-                console.log('Sending Files');
-                return sendFiles(files);
-            })
-            .catch(err => console.log('Error occurred', err));
-    });
+
+    WiFiP2P.connect(macAddr)
+        // Resolve connection details using getConnectionInfo
+        .then(() => {
+            console.log('Getting connection info');
+            return WiFiP2P.getConnectionInfo().then(info => console.log('getConnectionInfo', info));
+        })
+        .then(() => {
+            console.log('Sending Files');
+            return sendFiles(files);
+        })
+        .catch(err => console.log('Error occurred', err));
 }
 
 export const receiveFromClient = () => {

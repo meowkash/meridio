@@ -30,7 +30,7 @@ export async function pickFiles(dispatch, changeFileList) {
             
             let file = {
                 id: res.fileCopyUri,
-                uri: res.uri,
+                uri: decodeURIComponent(res.uri),
                 name: res.name,
                 size: Math.max(fileSizeInBytes, 0.1).toFixed(1)+byteUnits[i],
                 type: fileType
