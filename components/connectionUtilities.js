@@ -1,4 +1,5 @@
 import * as WiFiP2P from 'react-native-wifi-p2p';
+import * as Nearby from 'react-native-google-nearby-connection';
 
 import React from 'react';
 
@@ -36,7 +37,8 @@ export const sendFilesToServer = (macAddr, files) => {
         })
         .then(() => {
             console.log('Sending Files');
-            return sendFiles(files);
+            // return sendFiles(files);
+            return WiFiP2P.sendMessage('Hey ya');
         })
         .catch(err => console.log('Error occurred', err));
 }
@@ -50,6 +52,10 @@ export const receiveFromClient = () => {
         .then(() => {
             console.log('Successfully created group');
             return WiFiP2P.createGroup();
+        })
+        .then(() => {
+            console.log('Getting connection info');
+            return WiFiP2P.getConnectionInfo().then(info => console.log('getConnectionInfo', info));
         })
         .then(() => {
             console.log('Waiting for message');

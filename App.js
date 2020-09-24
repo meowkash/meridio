@@ -22,6 +22,8 @@ import {
     startDiscoveringPeers
 } from 'react-native-wifi-p2p';
 
+import * as Nearby from 'react-native-google-nearby-connection';
+
 import {
     connect
 } from 'react-redux';

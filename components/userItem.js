@@ -14,6 +14,7 @@ import {
 } from 'react-redux';
 
 import * as WiFiP2P from 'react-native-wifi-p2p';
+import * as Nearby from 'react-native-google-nearby-connection';
 
 import Images from '../assets/assetIndex';
 import { theme } from '../defaults/theme';

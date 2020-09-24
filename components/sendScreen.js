@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import * as WiFiP2P from 'react-native-wifi-p2p';
+import * as Nearby from 'react-native-google-nearby-connection';
 
 import FloatingList from './floatingList';
 import { theme } from '../defaults/theme';
